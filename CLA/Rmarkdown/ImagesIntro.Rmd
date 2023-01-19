@@ -1,0 +1,265 @@
+---
+title: "Images Introduction"
+author: "Will Mitchell"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(tinytex.verbose = TRUE)
+```
+
+```{r results = 'asis', comment = NA,echo=FALSE}
+myrmd = base64enc::dataURI(file = "ImagesIntro.Rmd", mime = 'text/rmd')
+cat(sprintf("
+ <a href='%s' target='_blank' download='mynb.Rmd'>
+  <span class='glyphicon glyphicon-cloud-download' style='font-size:1.2em;'></span>   Download
+  </a>", myrmd
+))
+########  delete this code chunk to remove the Download link   ###############
+```
+
+
+
+## Introduction to creating vectors, matrices and images in R
+
+
+### Install packages
+
+You'll need the "magick" package installed. Use the package manager in RStudio (on the right side of the screen by default) or type *packages.install('magick')* in the Console. 
+
+### Learn to create vectors
+
+One of the most useful features in R is this colon trick for creating a list (or *vector*) of consecutive integers:
+```{r}
+v <- 4:9
+print(v)
+```
+This can be used in many interesting ways. Once you have the vector, you can do arithmetic on it, like this: 
+```{r} 
+w <- v / 10 + 5
+print(w)
+```
+
+An alternative way to create the same vector is to type the entries individually and collect them with the important *c* command: 
+
+```{r}
+w <- c(5.4,5.5,5.6,5.7,5.8,5.9)
+print(w)
+```
+
+**Warning**: at some point you will be tempted to create a variable with the name *c*, the third lower case letter. Do not do it!!!! That overwrites the important "collect" function. The same goes for lower case *t*, which is the "transpose" function. 
+
+If you have two vectors of the same length, you can make a plot! 
+```{r}
+x <- (0:50)  * pi / 50 # numbers from zero to pi  
+y <- sin(x)  # create some data 
+y[20] <- 0.2 # put an outlier in the 20th spot
+plot(x,y, main="A simple plot")
+```
+
+### Exercises on vectors
+
+- Add the command *print(x)* to this cell to see another use of the colon syntax: changing many entries at once. 
+```{r}
+x <- 0*(1:6)
+x[3:5] <- 2
+```
+
+- Use the colon syntax to create a list of 101 evenly spaced numbers, starting at -1 and ending at 3. 
+
+- Create the vector $(2,2,2,2,5,6,7,8,9,-1)$. 
+
+
+### Learn to create matrices
+
+Suppose we want to build this matrix: 
+$$ A = \begin{pmatrix}
+0.2&0.8&0.8&1.0\\
+0.6&0.6&1.0&0.0\\
+0.2&0.0&0.0&0.5
+\end{pmatrix}$$
+
+We can do this by creating a vector with all of the entries, and then making it 2D by giving it the desired dimensions. Note that we start with all of the elements in the first column, then the second, and so on.  
+
+```{r}
+A <- c(0.2,0.6,0.2,0.8,0.6,0.0,0.8,1.0,0.0,1.0,0.0,0.5)
+dim(A) <- c(3,4)
+print(A)
+```
+
+It's kind of annoying to type every entry in the matrix, though. For matrices with more structure (such as large regions with identical entries) there are shortcuts. Here's an example:
+
+$$ B = \begin{pmatrix}0&0&0&0&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&0&0&2&0&0\\
+0&1&1&1&1&1&0&0&0&0&0\\
+0&1&1&1&1&1&0&0&0&4&4\\
+0&1&1&1&1&1&0&0&0&4&4\\
+0&0&0&0&0&0&0&0&0&4&4\end{pmatrix}$$
+
+To create $B$, we'll start with a matrix containing all zeros. Then we'll try to change whole blocks of entries simultaneously:
+```{r}
+B <- matrix(0,6,11)
+B[3:5,2:6] <- 1
+B[2,9] <- 2
+B[4:6,10:11] <- 4
+print(B)
+```
+
+
+It can also useful be useful to create matrices with randomly chosen entries. 
+Here are two versions, first with *uniformly* distributed entries (between 0 and 1) and next with *normally* distributed entries (with mean zero and standard deviation 1). In both cases we start with a vector and then use the *matrix* command to reshape it into a... matrix with given dimensions. 
+
+```{r}
+r1 <- matrix(runif(20),4,5)
+print(r1)
+r2 <- matrix(rnorm(12),4,3)
+print(r2)
+```
+
+One more trick: diagonal matrices! Check this out: 
+```{r}
+vec <- c(4,5,6,7,8,9)
+C = diag(vec)
+print(C)
+```
+
+
+### Exercises: create these matrices
+
+$$
+W = \begin{pmatrix}
+16&-2&\pi\\0&0&0\\1&-1&12\\0&0&1
+\end{pmatrix}
+$$
+```{r}
+# your code here: end with something like "print(W)"
+```
+
+$$
+X = \begin{pmatrix}
+2&2&2&2\\
+2&2&2&1\\
+2&2&1&1\\
+2&1&1&1\\
+1&1&1&1\\
+\end{pmatrix}
+$$
+
+
+$$
+Y = \begin{pmatrix}
+4&3&3&2&2&2&2&2&2\\
+3&4&3&2&2&2&2&2&2\\
+3&3&4&2&2&2&2&2&2\\
+0&0&0&4&3&3&2&2&2\\
+0&0&0&3&4&3&2&2&2\\
+0&0&0&3&3&4&2&2&2\\
+0&0&0&0&0&0&4&3&3\\
+0&0&0&0&0&0&3&4&3\\
+0&0&0&0&0&0&3&3&4\\
+\end{pmatrix}
+$$
+
+
+
+
+
+
+
+### Create images from matrices
+
+Now let's create some images!
+To make a color image, we'll create three matrices (one for each of the Red, Green and Blue *color channels*). Here are the three matrices for our first example:
+```{r}
+myRed <- matrix(0,500,500) # a 500x500 grid of zeros
+myRed[100:300,100:300] <- 1 # change some entries into ones
+
+myGreen <- matrix(0,500,500)
+myGreen[200:400,150:350] <- 1
+
+myBlue <- matrix(0,500,500)
+myBlue[150:250,200:500] <- 1
+```
+
+We could use any values **between zero and one** in these matrices. 
+
+Next, we combine them into a 3D array:
+
+```{r}
+data <- array(c(myRed,myGreen,myBlue),dim = c(500,500,3))
+```
+
+We load the library 'magick', which we previously installed: 
+```{r}
+library('magick')
+```
+
+Then we can display the image and also save it in our working directory:
+
+```{r}
+im <- image_read(data) 
+print(im) # this displays the image in RStudio and knitted documents
+image_write(im,"mycolors.png") # this saves the image as a separate file
+```
+
+### Create an image showing the first letter in your name
+
+When you're done, save it in [this Google doc](https://docs.google.com/document/d/1s1axnlolpOGDqnVTa38m4AzHkJXJrK690bzXXAyIJVI/edit?usp=sharing). I'll print them (in color) and they can become name cards for our class. 
+
+### Create an image showing random noise
+
+Is *runif* or *rnorm* more useful?  
+
+### Find out what happens if you use numbers larger than 1 or smaller than 0 in the three color channel matrices
+
+### Create an image that looks gray 
+
+You can do this by using exactly the same 2D matrix for all three color channels. 
+
+### Add some random noise to the image we already made 
+
+### Load an external image and convert to matrix form
+```{r}
+# before uncommenting, save an image to your working directory! 
+# this assumes the image is called "trees.png"
+
+#a = image_read("trees.png")
+#A = as.integer(a[[1]])
+#dim(A)
+#print(a)
+```
+
+### Important example: a rank-one matrix
+
+Here is an example of a *rank-one* matrix, meaning it contains all possible products of entries in two vectors. Check that you understand how the entries in $A$ come from the entries of $a_1$ and $a_2$ here: 
+```{r}
+a1 <- c(4,5,6,7)
+print(a1)
+a2 <- c(1,0,-2)
+print(a2)
+A <- a1 %*% t(a2)
+print(A)
+```
+
+Rank-one matrices are interesting because they contain lots of numbers, but not a lot of information (just the information contained in a pair of vectors). A *low-rank* matrix can be written as a sum of a small number of rank-one matrices. If you have a large data set, it is extremely wonderful if you can find a low-rank approximation for it. We will explore some methods for doing this later in the course. 
+
+Here is a much larger example of a rank-one matrix turned into an image: 
+```{r}
+# create an interesting vector: like a sine wave 
+t = (0:500) / 500 # this is a vector of 501 numbers ranging from 0 to 1
+x = sin(3*pi*t^2)^2 * (0.85+0.15*runif(501)) 
+y = sin(5*pi*t)^2 * (0.85+0.15*runif(501))   
+A = x %*% t(y) # creates a rank-one matrix from two vectors
+data = array(c(A,A,A),c(501,501,3))
+print(image_read(data)) # this displays the image in RStudio and knitted documents
+```
+
+Do you see how this image is related to the graphs of the vectors *x* and *y*?
+```{r}
+plot(x)
+```
+```{r}
+plot(y)
+```
+
