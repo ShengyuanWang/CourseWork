@@ -2,6 +2,7 @@
 title: "Images Introduction"
 author: "Will Mitchell"
 date: "`r Sys.Date()`"
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -26,7 +27,7 @@ cat(sprintf("
 
 ### Install packages
 
-You'll need the "magick" package installed. Use the package manager in RStudio (on the right side of the screen by default) or type *packages.install('magick')* in the Console. 
+You'll need the "magick" package installed. Use the package manager in RStudio (on the right side of the screen by default) or type *install.packages('magick')* in the Console. 
 
 ### Learn to create vectors
 
@@ -64,13 +65,19 @@ plot(x,y, main="A simple plot")
 ```{r}
 x <- 0*(1:6)
 x[3:5] <- 2
+print(x)
 ```
 
 - Use the colon syntax to create a list of 101 evenly spaced numbers, starting at -1 and ending at 3. 
 
 - Create the vector $(2,2,2,2,5,6,7,8,9,-1)$. 
 
-
+```{r}
+evenly_space <- seq(-1, 3, length.out=101)
+vct <- c(2, 2, 2, 2, 5, 6, 7, 8, 9, -1)
+print(evenly_space)
+print(vct)
+```
 ### Learn to create matrices
 
 Suppose we want to build this matrix: 
@@ -204,6 +211,7 @@ image_write(im,"mycolors.png") # this saves the image as a separate file
 ```
 
 ### Create an image showing the first letter in your name
+
 
 When you're done, save it in [this Google doc](https://docs.google.com/document/d/1s1axnlolpOGDqnVTa38m4AzHkJXJrK690bzXXAyIJVI/edit?usp=sharing). I'll print them (in color) and they can become name cards for our class. 
 
