@@ -212,7 +212,35 @@ image_write(im,"mycolors.png") # this saves the image as a separate file
 
 ### Create an image showing the first letter in your name
 
+```{r}
+myRed <- matrix(0,500,500) # a 500x500 grid of zeros
+myRed[0:500,0:500] <- 1 # change some entries into ones
 
+myGreen <- matrix(0,500,500)
+shiftleft <- 175
+shiftDown <- 50
+for (x in 0 : 100) {
+  for (t in 0 : 50) {
+    t <- t - shiftleft
+    myGreen[x+shiftDown, 400+x+t] <- 1
+    myGreen[x+shiftDown, 400-x+t] <- 1
+    myGreen[100+x+shiftDown, 300+x+t] <- 1
+    myGreen[195+x+shiftDown, 395+x+t] <- 1
+    myGreen[395-x+shiftDown, 395+x+t] <- 1
+    myGreen[395-x+shiftDown, 395-x+t] <- 1
+  }
+
+}
+
+myBlue <- matrix(0,500,500)
+
+
+data <- array(c(myRed,myGreen,myBlue),dim = c(500,500,3))
+
+im <- image_read(data) 
+print(im) # this displays the image in RStudio and knitted documents
+image_write(im,"mycolors.png")
+```
 When you're done, save it in [this Google doc](https://docs.google.com/document/d/1s1axnlolpOGDqnVTa38m4AzHkJXJrK690bzXXAyIJVI/edit?usp=sharing). I'll print them (in color) and they can become name cards for our class. 
 
 ### Create an image showing random noise

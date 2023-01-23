@@ -1,0 +1,661 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Images Introduction},
+  pdfauthor={Will Mitchell},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Images Introduction}
+\author{Will Mitchell}
+\date{2023-01-20}
+
+\begin{document}
+\maketitle
+
+{} Download
+
+\hypertarget{introduction-to-creating-vectors-matrices-and-images-in-r}{%
+\subsection{Introduction to creating vectors, matrices and images in
+R}\label{introduction-to-creating-vectors-matrices-and-images-in-r}}
+
+\hypertarget{install-packages}{%
+\subsubsection{Install packages}\label{install-packages}}
+
+You'll need the ``magick'' package installed. Use the package manager in
+RStudio (on the right side of the screen by default) or type
+\emph{install.packages(`magick')} in the Console.
+
+\hypertarget{learn-to-create-vectors}{%
+\subsubsection{Learn to create vectors}\label{learn-to-create-vectors}}
+
+One of the most useful features in R is this colon trick for creating a
+list (or \emph{vector}) of consecutive integers:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{v }\OtherTok{\textless{}{-}} \DecValTok{4}\SpecialCharTok{:}\DecValTok{9}
+\FunctionTok{print}\NormalTok{(v)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4 5 6 7 8 9
+\end{verbatim}
+
+This can be used in many interesting ways. Once you have the vector, you
+can do arithmetic on it, like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{w }\OtherTok{\textless{}{-}}\NormalTok{ v }\SpecialCharTok{/} \DecValTok{10} \SpecialCharTok{+} \DecValTok{5}
+\FunctionTok{print}\NormalTok{(w)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.4 5.5 5.6 5.7 5.8 5.9
+\end{verbatim}
+
+An alternative way to create the same vector is to type the entries
+individually and collect them with the important \emph{c} command:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{w }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{5.4}\NormalTok{,}\FloatTok{5.5}\NormalTok{,}\FloatTok{5.6}\NormalTok{,}\FloatTok{5.7}\NormalTok{,}\FloatTok{5.8}\NormalTok{,}\FloatTok{5.9}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(w)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.4 5.5 5.6 5.7 5.8 5.9
+\end{verbatim}
+
+\textbf{Warning}: at some point you will be tempted to create a variable
+with the name \emph{c}, the third lower case letter. Do not do it!!!!
+That overwrites the important ``collect'' function. The same goes for
+lower case \emph{t}, which is the ``transpose'' function.
+
+If you have two vectors of the same length, you can make a plot!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{0}\SpecialCharTok{:}\DecValTok{50}\NormalTok{)  }\SpecialCharTok{*}\NormalTok{ pi }\SpecialCharTok{/} \DecValTok{50} \CommentTok{\# numbers from zero to pi  }
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{sin}\NormalTok{(x)  }\CommentTok{\# create some data }
+\NormalTok{y[}\DecValTok{20}\NormalTok{] }\OtherTok{\textless{}{-}} \FloatTok{0.2} \CommentTok{\# put an outlier in the 20th spot}
+\FunctionTok{plot}\NormalTok{(x,y, }\AttributeTok{main=}\StringTok{"A simple plot"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ImagesIntro_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\hypertarget{exercises-on-vectors}{%
+\subsubsection{Exercises on vectors}\label{exercises-on-vectors}}
+
+\begin{itemize}
+\tightlist
+\item
+  Add the command \emph{print(x)} to this cell to see another use of the
+  colon syntax: changing many entries at once.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{)}
+\NormalTok{x[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2}
+\FunctionTok{print}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0 0 2 2 2 0
+\end{verbatim}
+
+\begin{itemize}
+\item
+  Use the colon syntax to create a list of 101 evenly spaced numbers,
+  starting at -1 and ending at 3.
+\item
+  Create the vector \((2,2,2,2,5,6,7,8,9,-1)\).
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{evenly\_space }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\AttributeTok{length.out=}\DecValTok{101}\NormalTok{)}
+\NormalTok{vct }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{9}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(evenly\_space)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1] -1.00 -0.96 -0.92 -0.88 -0.84 -0.80 -0.76 -0.72 -0.68 -0.64 -0.60 -0.56
+##  [13] -0.52 -0.48 -0.44 -0.40 -0.36 -0.32 -0.28 -0.24 -0.20 -0.16 -0.12 -0.08
+##  [25] -0.04  0.00  0.04  0.08  0.12  0.16  0.20  0.24  0.28  0.32  0.36  0.40
+##  [37]  0.44  0.48  0.52  0.56  0.60  0.64  0.68  0.72  0.76  0.80  0.84  0.88
+##  [49]  0.92  0.96  1.00  1.04  1.08  1.12  1.16  1.20  1.24  1.28  1.32  1.36
+##  [61]  1.40  1.44  1.48  1.52  1.56  1.60  1.64  1.68  1.72  1.76  1.80  1.84
+##  [73]  1.88  1.92  1.96  2.00  2.04  2.08  2.12  2.16  2.20  2.24  2.28  2.32
+##  [85]  2.36  2.40  2.44  2.48  2.52  2.56  2.60  2.64  2.68  2.72  2.76  2.80
+##  [97]  2.84  2.88  2.92  2.96  3.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(vct)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  2  2  2  2  5  6  7  8  9 -1
+\end{verbatim}
+
+\hypertarget{learn-to-create-matrices}{%
+\subsubsection{Learn to create
+matrices}\label{learn-to-create-matrices}}
+
+Suppose we want to build this matrix: \[ A = \begin{pmatrix}
+0.2&0.8&0.8&1.0\\
+0.6&0.6&1.0&0.0\\
+0.2&0.0&0.0&0.5
+\end{pmatrix}\]
+
+We can do this by creating a vector with all of the entries, and then
+making it 2D by giving it the desired dimensions. Note that we start
+with all of the elements in the first column, then the second, and so
+on.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.6}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.8}\NormalTok{,}\FloatTok{0.6}\NormalTok{,}\FloatTok{0.0}\NormalTok{,}\FloatTok{0.8}\NormalTok{,}\FloatTok{1.0}\NormalTok{,}\FloatTok{0.0}\NormalTok{,}\FloatTok{1.0}\NormalTok{,}\FloatTok{0.0}\NormalTok{,}\FloatTok{0.5}\NormalTok{)}
+\FunctionTok{dim}\NormalTok{(A) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(A)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4]
+## [1,]  0.2  0.8  0.8  1.0
+## [2,]  0.6  0.6  1.0  0.0
+## [3,]  0.2  0.0  0.0  0.5
+\end{verbatim}
+
+It's kind of annoying to type every entry in the matrix, though. For
+matrices with more structure (such as large regions with identical
+entries) there are shortcuts. Here's an example:
+
+\[ B = \begin{pmatrix}0&0&0&0&0&0&0&0&0&0&0\\
+0&0&0&0&0&0&0&0&2&0&0\\
+0&1&1&1&1&1&0&0&0&0&0\\
+0&1&1&1&1&1&0&0&0&4&4\\
+0&1&1&1&1&1&0&0&0&4&4\\
+0&0&0&0&0&0&0&0&0&4&4\end{pmatrix}\]
+
+To create \(B\), we'll start with a matrix containing all zeros. Then
+we'll try to change whole blocks of entries simultaneously:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{B }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{11}\NormalTok{)}
+\NormalTok{B[}\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{6}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{B[}\DecValTok{2}\NormalTok{,}\DecValTok{9}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{2}
+\NormalTok{B[}\DecValTok{4}\SpecialCharTok{:}\DecValTok{6}\NormalTok{,}\DecValTok{10}\SpecialCharTok{:}\DecValTok{11}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{4}
+\FunctionTok{print}\NormalTok{(B)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11]
+## [1,]    0    0    0    0    0    0    0    0    0     0     0
+## [2,]    0    0    0    0    0    0    0    0    2     0     0
+## [3,]    0    1    1    1    1    1    0    0    0     0     0
+## [4,]    0    1    1    1    1    1    0    0    0     4     4
+## [5,]    0    1    1    1    1    1    0    0    0     4     4
+## [6,]    0    0    0    0    0    0    0    0    0     4     4
+\end{verbatim}
+
+It can also useful be useful to create matrices with randomly chosen
+entries. Here are two versions, first with \emph{uniformly} distributed
+entries (between 0 and 1) and next with \emph{normally} distributed
+entries (with mean zero and standard deviation 1). In both cases we
+start with a vector and then use the \emph{matrix} command to reshape it
+into a\ldots{} matrix with given dimensions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r1 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{runif}\NormalTok{(}\DecValTok{20}\NormalTok{),}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(r1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]      [,2]      [,3]       [,4]      [,5]
+## [1,] 0.47466999 0.7174521 0.4645567 0.04514971 0.3190841
+## [2,] 0.08692093 0.1417700 0.6820196 0.59121181 0.5001712
+## [3,] 0.24576708 0.7486554 0.5824023 0.65655525 0.5139146
+## [4,] 0.99892624 0.1657658 0.7108239 0.95512667 0.8139455
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{r2 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{12}\NormalTok{),}\DecValTok{4}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(r2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            [,1]       [,2]      [,3]
+## [1,] -1.0209595 -0.8340193 0.6535734
+## [2,]  0.3143791 -0.4044857 0.4717157
+## [3,] -0.5941875 -0.7191404 0.4123738
+## [4,]  0.2353453 -0.9129796 0.8680073
+\end{verbatim}
+
+One more trick: diagonal matrices! Check this out:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vec }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{)}
+\NormalTok{C }\OtherTok{=} \FunctionTok{diag}\NormalTok{(vec)}
+\FunctionTok{print}\NormalTok{(C)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    4    0    0    0    0    0
+## [2,]    0    5    0    0    0    0
+## [3,]    0    0    6    0    0    0
+## [4,]    0    0    0    7    0    0
+## [5,]    0    0    0    0    8    0
+## [6,]    0    0    0    0    0    9
+\end{verbatim}
+
+\hypertarget{exercises-create-these-matrices}{%
+\subsubsection{Exercises: create these
+matrices}\label{exercises-create-these-matrices}}
+
+\[
+W = \begin{pmatrix}
+16&-2&\pi\\0&0&0\\1&-1&12\\0&0&1
+\end{pmatrix}
+\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# your code here: end with something like "print(W)"}
+\end{Highlighting}
+\end{Shaded}
+
+\[
+X = \begin{pmatrix}
+2&2&2&2\\
+2&2&2&1\\
+2&2&1&1\\
+2&1&1&1\\
+1&1&1&1\\
+\end{pmatrix}
+\]
+
+\[
+Y = \begin{pmatrix}
+4&3&3&2&2&2&2&2&2\\
+3&4&3&2&2&2&2&2&2\\
+3&3&4&2&2&2&2&2&2\\
+0&0&0&4&3&3&2&2&2\\
+0&0&0&3&4&3&2&2&2\\
+0&0&0&3&3&4&2&2&2\\
+0&0&0&0&0&0&4&3&3\\
+0&0&0&0&0&0&3&4&3\\
+0&0&0&0&0&0&3&3&4\\
+\end{pmatrix}
+\]
+
+\hypertarget{create-images-from-matrices}{%
+\subsubsection{Create images from
+matrices}\label{create-images-from-matrices}}
+
+Now let's create some images! To make a color image, we'll create three
+matrices (one for each of the Red, Green and Blue \emph{color
+channels}). Here are the three matrices for our first example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myRed }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{500}\NormalTok{) }\CommentTok{\# a 500x500 grid of zeros}
+\NormalTok{myRed[}\DecValTok{100}\SpecialCharTok{:}\DecValTok{300}\NormalTok{,}\DecValTok{100}\SpecialCharTok{:}\DecValTok{300}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1} \CommentTok{\# change some entries into ones}
+
+\NormalTok{myGreen }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{500}\NormalTok{)}
+\NormalTok{myGreen[}\DecValTok{200}\SpecialCharTok{:}\DecValTok{400}\NormalTok{,}\DecValTok{150}\SpecialCharTok{:}\DecValTok{350}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+
+\NormalTok{myBlue }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{500}\NormalTok{)}
+\NormalTok{myBlue[}\DecValTok{150}\SpecialCharTok{:}\DecValTok{250}\NormalTok{,}\DecValTok{200}\SpecialCharTok{:}\DecValTok{500}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+We could use any values \textbf{between zero and one} in these matrices.
+
+Next, we combine them into a 3D array:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{array}\NormalTok{(}\FunctionTok{c}\NormalTok{(myRed,myGreen,myBlue),}\AttributeTok{dim =} \FunctionTok{c}\NormalTok{(}\DecValTok{500}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+We load the library `magick', which we previously installed:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(}\StringTok{\textquotesingle{}magick\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Linking to ImageMagick 6.9.12.3
+## Enabled features: cairo, fontconfig, freetype, heic, lcms, pango, raw, rsvg, webp
+## Disabled features: fftw, ghostscript, x11
+\end{verbatim}
+
+Then we can display the image and also save it in our working directory:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{im }\OtherTok{\textless{}{-}} \FunctionTok{image\_read}\NormalTok{(data) }
+\FunctionTok{print}\NormalTok{(im) }\CommentTok{\# this displays the image in RStudio and knitted documents}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   format width height colorspace matte filesize density
+## 1    PNG   500    500       sRGB FALSE        0   72x72
+\end{verbatim}
+
+\includegraphics[width=6.94in]{ImagesIntro_files/figure-latex/unnamed-chunk-16-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{image\_write}\NormalTok{(im,}\StringTok{"mycolors.png"}\NormalTok{) }\CommentTok{\# this saves the image as a separate file}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{create-an-image-showing-the-first-letter-in-your-name}{%
+\subsubsection{Create an image showing the first letter in your
+name}\label{create-an-image-showing-the-first-letter-in-your-name}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{myRed }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{500}\NormalTok{) }\CommentTok{\# a 500x500 grid of zeros}
+\NormalTok{myRed[}\DecValTok{0}\SpecialCharTok{:}\DecValTok{500}\NormalTok{,}\DecValTok{0}\SpecialCharTok{:}\DecValTok{500}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1} \CommentTok{\# change some entries into ones}
+
+\NormalTok{myGreen }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{500}\NormalTok{)}
+\NormalTok{shiftleft }\OtherTok{\textless{}{-}} \DecValTok{175}
+\NormalTok{shiftDown }\OtherTok{\textless{}{-}} \DecValTok{50}
+\ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{0} \SpecialCharTok{:} \DecValTok{100}\NormalTok{) \{}
+  \ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{0} \SpecialCharTok{:} \DecValTok{50}\NormalTok{) \{}
+\NormalTok{    t }\OtherTok{\textless{}{-}}\NormalTok{ t }\SpecialCharTok{{-}}\NormalTok{ shiftleft}
+\NormalTok{    myGreen[x}\SpecialCharTok{+}\NormalTok{shiftDown, }\DecValTok{400}\SpecialCharTok{+}\NormalTok{x}\SpecialCharTok{+}\NormalTok{t] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{    myGreen[x}\SpecialCharTok{+}\NormalTok{shiftDown, }\DecValTok{400}\SpecialCharTok{{-}}\NormalTok{x}\SpecialCharTok{+}\NormalTok{t] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{    myGreen[}\DecValTok{100}\SpecialCharTok{+}\NormalTok{x}\SpecialCharTok{+}\NormalTok{shiftDown, }\DecValTok{300}\SpecialCharTok{+}\NormalTok{x}\SpecialCharTok{+}\NormalTok{t] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{    myGreen[}\DecValTok{195}\SpecialCharTok{+}\NormalTok{x}\SpecialCharTok{+}\NormalTok{shiftDown, }\DecValTok{395}\SpecialCharTok{+}\NormalTok{x}\SpecialCharTok{+}\NormalTok{t] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{    myGreen[}\DecValTok{395}\SpecialCharTok{{-}}\NormalTok{x}\SpecialCharTok{+}\NormalTok{shiftDown, }\DecValTok{395}\SpecialCharTok{+}\NormalTok{x}\SpecialCharTok{+}\NormalTok{t] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{    myGreen[}\DecValTok{395}\SpecialCharTok{{-}}\NormalTok{x}\SpecialCharTok{+}\NormalTok{shiftDown, }\DecValTok{395}\SpecialCharTok{{-}}\NormalTok{x}\SpecialCharTok{+}\NormalTok{t] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{  \}}
+
+\NormalTok{\}}
+
+\NormalTok{myBlue }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{500}\NormalTok{)}
+
+
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{array}\NormalTok{(}\FunctionTok{c}\NormalTok{(myRed,myGreen,myBlue),}\AttributeTok{dim =} \FunctionTok{c}\NormalTok{(}\DecValTok{500}\NormalTok{,}\DecValTok{500}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+
+\NormalTok{im }\OtherTok{\textless{}{-}} \FunctionTok{image\_read}\NormalTok{(data) }
+\FunctionTok{print}\NormalTok{(im) }\CommentTok{\# this displays the image in RStudio and knitted documents}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   format width height colorspace matte filesize density
+## 1    PNG   500    500       sRGB FALSE        0   72x72
+\end{verbatim}
+
+\includegraphics[width=6.94in]{ImagesIntro_files/figure-latex/unnamed-chunk-17-1}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{image\_write}\NormalTok{(im,}\StringTok{"mycolors.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+When you're done, save it in
+\href{https://docs.google.com/document/d/1s1axnlolpOGDqnVTa38m4AzHkJXJrK690bzXXAyIJVI/edit?usp=sharing}{this
+Google doc}. I'll print them (in color) and they can become name cards
+for our class.
+
+\hypertarget{create-an-image-showing-random-noise}{%
+\subsubsection{Create an image showing random
+noise}\label{create-an-image-showing-random-noise}}
+
+Is \emph{runif} or \emph{rnorm} more useful?
+
+\hypertarget{find-out-what-happens-if-you-use-numbers-larger-than-1-or-smaller-than-0-in-the-three-color-channel-matrices}{%
+\subsubsection{Find out what happens if you use numbers larger than 1 or
+smaller than 0 in the three color channel
+matrices}\label{find-out-what-happens-if-you-use-numbers-larger-than-1-or-smaller-than-0-in-the-three-color-channel-matrices}}
+
+\hypertarget{create-an-image-that-looks-gray}{%
+\subsubsection{Create an image that looks
+gray}\label{create-an-image-that-looks-gray}}
+
+You can do this by using exactly the same 2D matrix for all three color
+channels.
+
+\hypertarget{add-some-random-noise-to-the-image-we-already-made}{%
+\subsubsection{Add some random noise to the image we already
+made}\label{add-some-random-noise-to-the-image-we-already-made}}
+
+\hypertarget{load-an-external-image-and-convert-to-matrix-form}{%
+\subsubsection{Load an external image and convert to matrix
+form}\label{load-an-external-image-and-convert-to-matrix-form}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# before uncommenting, save an image to your working directory! }
+\CommentTok{\# this assumes the image is called "trees.png"}
+
+\CommentTok{\#a = image\_read("trees.png")}
+\CommentTok{\#A = as.integer(a[[1]])}
+\CommentTok{\#dim(A)}
+\CommentTok{\#print(a)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{important-example-a-rank-one-matrix}{%
+\subsubsection{Important example: a rank-one
+matrix}\label{important-example-a-rank-one-matrix}}
+
+Here is an example of a \emph{rank-one} matrix, meaning it contains all
+possible products of entries in two vectors. Check that you understand
+how the entries in \(A\) come from the entries of \(a_1\) and \(a_2\)
+here:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(a1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4 5 6 7
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(a2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1  0 -2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OtherTok{\textless{}{-}}\NormalTok{ a1 }\SpecialCharTok{\%*\%} \FunctionTok{t}\NormalTok{(a2)}
+\FunctionTok{print}\NormalTok{(A)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]    4    0   -8
+## [2,]    5    0  -10
+## [3,]    6    0  -12
+## [4,]    7    0  -14
+\end{verbatim}
+
+Rank-one matrices are interesting because they contain lots of numbers,
+but not a lot of information (just the information contained in a pair
+of vectors). A \emph{low-rank} matrix can be written as a sum of a small
+number of rank-one matrices. If you have a large data set, it is
+extremely wonderful if you can find a low-rank approximation for it. We
+will explore some methods for doing this later in the course.
+
+Here is a much larger example of a rank-one matrix turned into an image:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# create an interesting vector: like a sine wave }
+\NormalTok{t }\OtherTok{=}\NormalTok{ (}\DecValTok{0}\SpecialCharTok{:}\DecValTok{500}\NormalTok{) }\SpecialCharTok{/} \DecValTok{500} \CommentTok{\# this is a vector of 501 numbers ranging from 0 to 1}
+\NormalTok{x }\OtherTok{=} \FunctionTok{sin}\NormalTok{(}\DecValTok{3}\SpecialCharTok{*}\NormalTok{pi}\SpecialCharTok{*}\NormalTok{t}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ (}\FloatTok{0.85+0.15}\SpecialCharTok{*}\FunctionTok{runif}\NormalTok{(}\DecValTok{501}\NormalTok{)) }
+\NormalTok{y }\OtherTok{=} \FunctionTok{sin}\NormalTok{(}\DecValTok{5}\SpecialCharTok{*}\NormalTok{pi}\SpecialCharTok{*}\NormalTok{t)}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ (}\FloatTok{0.85+0.15}\SpecialCharTok{*}\FunctionTok{runif}\NormalTok{(}\DecValTok{501}\NormalTok{))   }
+\NormalTok{A }\OtherTok{=}\NormalTok{ x }\SpecialCharTok{\%*\%} \FunctionTok{t}\NormalTok{(y) }\CommentTok{\# creates a rank{-}one matrix from two vectors}
+\NormalTok{data }\OtherTok{=} \FunctionTok{array}\NormalTok{(}\FunctionTok{c}\NormalTok{(A,A,A),}\FunctionTok{c}\NormalTok{(}\DecValTok{501}\NormalTok{,}\DecValTok{501}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\FunctionTok{print}\NormalTok{(}\FunctionTok{image\_read}\NormalTok{(data)) }\CommentTok{\# this displays the image in RStudio and knitted documents}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   format width height colorspace matte filesize density
+## 1    PNG   501    501       sRGB FALSE        0   72x72
+\end{verbatim}
+
+\includegraphics[width=6.96in]{ImagesIntro_files/figure-latex/unnamed-chunk-20-1}
+
+Do you see how this image is related to the graphs of the vectors
+\emph{x} and \emph{y}?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ImagesIntro_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ImagesIntro_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\end{document}
