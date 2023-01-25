@@ -57,7 +57,7 @@ So when they time together, the result $x^TAx$ will be a number.
 
 Since $A$ is real, $\overline{A} = A$, $\overline{A}$ here is the element-wise complex conjugate. 
 \[A\overline{x} = \overline{\lambda}\overline{x}\]
-Then, we can transpose both side adn we will get 
+Then, we can transpose both side and we will get 
 \[\overline{x}^{T}A = \overline{\lambda}\overline{x}^{T}\]
 So, we can get
 \[\overline{\lambda}\overline{x}^{T}x = \overline{x}^{T}Ax = \overline{x}^{T}\lambda x=\lambda \overline{x}^{T}x\]
@@ -160,7 +160,7 @@ Comment carefully on the differences you see between the three versions. Then ex
 
 In the first version, which is the original dot plot of function $y = x^{-2}$, the x-axis ranges from 1 to 1000, and y-axis ranges from 0 to 1.
 
-In the second version, we manually change the x-axis and y-axis into $log_{10}(x)$ and $log_{10}(y)$, the plot shows the fucntion $y = -2x$. In this plot, the X range is also from 1 to 1000, in other words, $log_{10}(x)$ ranges from 1 to 3, and $log_{10}(y)$ ranges from -6 to 0.
+In the second version, we manually change the x-axis and y-axis into $log_{10}(x)$ and $log_{10}(y)$, the plot shows the fucntion $y = -2x$. In this plot, the X range is also from 1 to 1000, in other words, $log_{10}(x)$ ranges from 0 to 3, and $log_{10}(y)$ ranges from -6 to 0.
 
 In the third version, we can see although it looks like the same as the second plot, however, this plot does not show the funtion $y=-2x$, instead it shows $y = x^{-2}$. The reason it looks similar to the second one is that both the axises are all logarithmic through the code "log='xy'", it exists dramatic difference in the x-axis and y-axis. 
 
