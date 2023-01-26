@@ -1,6 +1,6 @@
 ---
 title: "HW2, due Thursday 2/2 at 5PM"
-author: "Will Mitchell"
+author: "Shengyuan Wang"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -19,6 +19,13 @@ Homework guidelines:
 ### Q0 Collaborators
 Who did you work with on this assignment? You'll get a bonus 5 points if you name someone and they name you. *No scores above 100% are allowed, but these bonus points can repair mistakes on this assignment*.
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+Name: Wenxuan Zhu
+
+I worked with Wenxuan on this assignment.
+
+:::
 
 ### Q1 Some flop counts
 A *flop count* or *floating-point operation count* is a way of measuring how many arithmetic operations are required to carry out an algorithm. For example, the line 
@@ -31,23 +38,114 @@ Let $A$ be a $1000\times1000$ matrix and let $x\in\mathbb{R}^{1000}$.
 
 - How many flops (additions and multiplications of real numbers) are required to compute the inner product $x^Tx$? 
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+\[x^{T}x = x_{1}*x_{1} + x_2*x_2 + \cdots + x_{1000}*x_{1000}\]
+
+So the line uses 1000 multiplications and 999 additions, 1999 flops in total.
+
+:::
+
 - How many flops are required to compute the matrix-vector product $Ax$? 
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+Let denote $A_{1}$ as the first row in $A$
+
+\[A_{1}x = a_{1,1}*x_{1}+ \cdots +a_{1,1000}*x_{1000})\]
+\[flop(Ax) = flop(A_{1}x) + flop(A_{2}x) + \cdots + flop(A_{1000}x)\]
+
+From previous question, we can find there are 1999 flops in each brackets. In this problem, we can conclude that there will be $1999\times1000 = 1999000$ flops.
+:::
+
 - How many flops are required to compute the matrix-matrix product $AA$?
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+Let $A_{n}$ be the nth column of $A$. From the previous question, we can see $Ax$ will result in 1999000 flops. 
+\[flop(AA) = flop(AA_{1}) + flop(AA_{2}) + \cdots + flop(AA_{1000})\]
+So this time, there will be $1999000 * 1000 = 1999000000$ flops.
+
+:::
 
 - Suppose $B$ is a rank-one matrix, $B=uv^T$ where $u,v\in\mathbb{R}^{1000}$. To form $Bx$ cheaply we should do $u(v^Tx)$ instead of $(uv^T)x$. How many flops are needed? 
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
+To find $v^{T}x$, we need 1999 flops from the first question.
+
+Let say $v^{T}x = c$, c is a number.
+Thus, the flop number of $uc$ is 1000.
+And the total flops of $u(v^{T}x)$ is 2999 flops.
+
+:::
 
 
 ### Q2 Eigenvalues of a real, symmetric matrix
 
 - Let $w = \begin{pmatrix}2+3i\\4-i\\-10i\end{pmatrix}\in\mathbb{C}^2.$ Find $w^*w$ where $w^*$ is the result of taking the transpose and then also changing the sign of the imaginary parts (for example, changing $10+5i$ into $10-5i$). The $*$ operation is called the "Hermitian transpose" and it has the same rules as the ordinary transpose: $(AB)^* = B^*A^*$, $(A+B)^* = A^*+B^*$ and so on.  
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+\[
+\begin{eqnarray}
+w^{*}w \nonumber
+&=& \begin{pmatrix}2-3i \quad 4+i \quad 10i\end{pmatrix}\begin{pmatrix}2+3i\\4-i\\-10i\end{pmatrix} \\ \nonumber
+&=& (2-3i)(2+3i)+(4+i)(4-i)+(10i)(-10i) \\ \nonumber
+&=& 13 + 17 + 100 \\ \nonumber
+&=& 130 \nonumber
+\end{eqnarray}
+
+\]
+
+
+:::
+
 - Explain why $x^*x$ is real for any $x\in\mathbb{C}^n$. 
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+Let say $x_{n}$ as the nth entry in $x$, $\overline{x}$ be the complex conjugate of $x$.
+
+\[x^{*}x = \overline{x_{1}}x_{1} + \overline{x_{2}}x_{2} + \cdots + \overline{x_{n}}x_{n}\]
+
+Let $x_{n} = a + bi$, then $\overline{x_{n}} = a - bi$. And $\overline{x_{n}}x_{n} = a^{2} + b^{2} \in \mathbb{R}$
+
+Thus, $x^{*}x \in \mathbb{R}$.
+
+:::
 
 - Suppose that $A$ is an $n\times n$ matrix with real or complex entries and that $x$ is a vector in $\mathbb{R}^n$ or $\mathbb{C}^n$. Is $x^*Ax$ a number, vector, or matrix? 
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+$x^*Ax$ is a number.
+
+:::
+
 - Suppose $A=A^*$ (this includes the case where $A$ is real and symmetric). Suppose that $Ax = \lambda x$ for some nonzero $x$. That is, $x$ is an eigenvector of $A$ with eigenvalue $\lambda$. Show that $x^*Ax = (x^*Ax)^*$, which proves that $x^*Ax$ is real. Then show that $x^*Ax = \lambda x^*x$. Explain why this means that $\lambda$ must be a real number. 
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+We can prove $x^*Ax = (x^*Ax)^*$ backwardly. 
+
+\[\begin{eqnarray}
+(x^*Ax)^* \nonumber
+&=& (Ax)^{*}(x^{*})^{*} \\ \nonumber
+&=& (Ax)^{*}x \\ \nonumber
+&=&x^{*}A^{*}x \\ \nonumber
+&=&x^{*}Ax \nonumber
+\end{eqnarray}\]
+
+This means that $(x^*Ax)^*$ is real.
+
+Then,
+\[x^{*}Ax = x^{*}\lambda x = \lambda x^{*}x\]
+
+Since both $x^{*}Ax$ and $x^{*}x$ are real, we can divide both side by $x^{*}x$, which is not zero since x is nonzero. So we can get $\lambda$ is a real number.
+
+
+:::
 
 - Form the matrices $P$ and $S$ in R and use the syntax *eigen(A)$values* to find their eigenvalues. (According to the result we proved, $S$ should have real eigenvalues and $P$ might or might not have real eigenvalues). 
 $$P = \begin{pmatrix} -4&5&6\\1&0&9 \\9&1&2\end{pmatrix}
@@ -55,6 +153,16 @@ $$P = \begin{pmatrix} -4&5&6\\1&0&9 \\9&1&2\end{pmatrix}
 S = \begin{pmatrix} -1&2&1\\2&7&-3\\1&-3&4\end{pmatrix}
 $$
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+```{r}
+P <- matrix(c(-4, 1, 9, 5, 0, 1, 6, 9, 2), nrow = 3, ncol = 3)
+S <- matrix(c(-1, 2, 1, 2, 7, -3, 1, -3, 4), nrow = 3, ncol = 3)
+print(eigen(S)$values)
+print(eigen(P)$values)
+```
+
+:::
 
 
 
@@ -65,17 +173,61 @@ In this situation it doesn't make sense to ask for "the solution," but we can as
 Let's consider a case with one equation and three unknowns: $$ 3x + 5y + 6z = 210.$$
 
 (a) Find the smallest solution as measured in the two-norm. *Hint: you are finding the shortest distance from the origin to a plane. One approach is to use Lagrange multipliers to minimize $x^2+y^2+z^2$, with the equation above acting as the constraint.*
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+\[\nabla f(x, y, z) = \lambda \nabla g(x, y, z)\]
+\[<f_{x}, f_{y}, f_{z}> = \lambda <g_{x}, g_{y}, g_{z}>\]
+\[<2x, 2y, 2z> = \lambda <3, 5, 6>\]
+We get $x = \frac{3}{2}\lambda$, $y = \frac{5}{2}\lambda$, $z = 3\lambda$
+\[3(\frac{3}{2}\lambda) + 5(\frac{5}{2}\lambda) + 6(3\lambda) = 210\]
+\[\lambda = 6\]
+So, $x = \frac{3}{2}\lambda = 9$, $y = \frac{5}{2}\lambda = 15$, $z = 3\lambda = 18$
+
+Thus, two-norm is $\sqrt{x^{2}+y^{2}+z^{2}} = \sqrt{9^{2}+15^{2}+18^{2}} \approx 25.1$
+
+:::
+
 (b) Find the smallest solution as measured in the one-norm. 
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+Here we aim to minimize $|x| + |y| + |z|$. It is straightforward that we let $x = 0$, $y = 0$, and let $z = 35$. In this way, we will get the smallest solution, which is 35.
+
+:::
+
 (c) Find the smallest solution as measured in the max-norm. 
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+Here, we want to minimize $\max(|x|, |y|, |z|)$. So, when $x = y = z$, the result is minimized. And we will get $x = y = z = 15$, and the smallest solution is 15.
+
+:::
+
+
 (d) Do a web search for "one-norm minimization." You should quickly learn that $\ell^1$ minimization has become important in the last 20 years because of its tendency to produce *sparse solutions.* What does that mean? Did this happen in part (b) for you?  
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+if we draw all points that have a L1 norm equals to a constant c, the shape looks like a tilted square. We will find a sparse solution by enlarging the shape from the origin by giving a growing c to touch the solution line we want. The intuition is that the touching point will be the tip of the shape. Since the tip is a sparese point, the solution will also be a sparse solution. The only situation resulting in nonsparse solution will be touching an edge where most of the solutions are not sparese, except the two tips. The probability of touching the tip is very high. And this also happens in part(b). 
+
+:::
 
 ### Q4 Not a norm
 We said that the $p$-norm requires $p\in(1,\infty)$. Here we'll see what goes wrong if we try $p=\frac12$. That would lead to 
 $$ \|x\|_{1/2} = \left(\sqrt{|x_1|} + \sqrt{|x_2|}+\cdots +\sqrt{|x_n|}\right)^2.$$
 
 (a) Find $\|x\|_{1/2}$ if $x^T = (100\;\;\;-25\;\;\;16\;\;\;0)$. 
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+:::
+
 (b) Find an example in $\mathbb{R}^3$ where the triangle inequality fails. That is, give vectors $v,w\in\mathbb{R}^3$ such that $\|v+w\|_{1/2} > \|v\|_{1/2} + \|w\|_{1/2}$. Your example should have nice enough numbers that you can do this on paper, without calculator / R help.
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+:::
 
 ### Q5 Trapezoid rule with user-specified tolerance
 Write an R function that carries out trapezoidal rule integration to a specified error tolerance (the user does not specify the number of quadrature nodes). The first line should be something like this: 
@@ -94,6 +246,9 @@ I = \int_0^{100} \frac{3\sqrt{w}}{2000}\,dw,\qquad
 J = \int_2^5 \exp((x-3)(x-4))\,dx,\qquad K = \int_{-\pi}^{\pi} \frac{\cos^2(3t+1)}{1.05 + \sin(t)}\,dt.
 $$
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+:::
 
 ### Q6 The trapezoid rule is spectrally accurate for periodic problems
 Explore how the error of the trapezoid rule depends on the number of nodes for the integrals $J$ and $K$ in the previous question. To do this, make a loglog plot with $n$ (number of quadrature nodes or function measurements) on the horizontal axis and $E$ (the absolute value of the difference between the true integral and the trapezoid rule estimate) on the vertical axis. 
@@ -110,10 +265,16 @@ legend("topright",legend=c("e1","e2"),pch=c(8,12),lwd=2,col=c("blue","black"))
 
 In the correct solution, **fake.error.1[j]** should be the error of the trapezoid rule for integral $J$ using **n[j]** function evaluations, while **fake.error.2** should be the errors for integral $K$. 
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+:::
+
 ### Q7 Secant
 Implement the secant method and use it to find a value of $x$ where $\cosh(x) = \sinh(x) + 0.1$. Give at least twelve correct digits. Explain how you pick the two initial guesses. 
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
+:::
 
 ### Q8 Five simple versions of $Ax=b$
 In each of the five cases, find the vector $x$ which solves the problem $Ax=b$. Do it by hand. Missing entries are zeros. It is OK to not show work, but please write at least one sentence describing your method in each case. It is OK to write on paper and scan/photograph your answers as long as you turn in a single PDF as your solution. 
@@ -149,6 +310,8 @@ A = \begin{pmatrix}
 \end{pmatrix};\quad b = \begin{pmatrix}3\\6\\5\\1  \end{pmatrix}
 $$
 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
+:::
 
 

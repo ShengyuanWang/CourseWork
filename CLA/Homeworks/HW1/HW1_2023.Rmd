@@ -255,11 +255,21 @@ The three matrices redA, greenA, and blueA contain numbers between 0 and 1. Pick
 
 ```{r}
 library("magick")
-A[redA < 0.4] <- 0
-A[blueA<0.4] <- 0
-A[greenA<0.4] <- 0
-hc <- image_read(A)
-print(hc)
+a = image_read("Department.png")
+A = as.integer(a[[1]])/256
+redA = A[,,1]
+print(dim(redA))
+
+greenA = A[,,2]
+blueA = A[,,3]
+redA[redA < 0.5] <- 0
+redA[redA >= 0.5] <- 1
+greenA[greenA < 0.5] <- 0
+greenA[greenA >= 0.5] <- 1
+blueA[blueA < 0.5] <- 0
+blueA[blueA >= 0.5] <- 1
+result <- image_read(array(c(redA,greenA,blueA), dim = c(382,370,3)))
+print(result) # this displays the image in RStudio and knitted documents
 ```
 
 In the image, we can find most of the pixels are black or white, but there still exist some pixels with colors. When we change the numbers in the three matrices, the number will be 0 or 1. So when we got (0, 0, 0), the color will be black and when we got (1, 1, 1), the color will be white. However, when there just exist one 1 or two 1s, for example (1, 1, 0) or (1, 0, 0), the pixel will have other colors, yellow or red.
