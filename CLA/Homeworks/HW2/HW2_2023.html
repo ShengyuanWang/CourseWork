@@ -455,14 +455,29 @@ changing <span class="math inline">\(10+5i\)</span> into <span class="math inlin
 transpose” and it has the same rules as the ordinary transpose: <span class="math inline">\((AB)^* = B^*A^*\)</span>, <span class="math inline">\((A+B)^* = A^*+B^*\)</span> and so on.</li>
 </ul>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>[ <span class="math display">\[\begin{eqnarray}
+w^{*}w \nonumber
+&amp;=&amp; \begin{pmatrix}2-3i \quad 4+i \quad
+10i\end{pmatrix}\begin{pmatrix}2+3i\\4-i\\-10i\end{pmatrix} \\ \nonumber
+&amp;=&amp; (2-3i)(2+3i)+(4+i)(4-i)+(10i)(-10i) \\ \nonumber
+&amp;=&amp; 13 + 17 + 100 \\ \nonumber
+&amp;=&amp; 130 \nonumber
+\end{eqnarray}\]</span></p>
+<p>]</p>
 </div>
 <ul>
 <li>Explain why <span class="math inline">\(x^*x\)</span> is real for
 any <span class="math inline">\(x\in\mathbb{C}^n\)</span>.</li>
 </ul>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>Let say <span class="math inline">\(x_{n}\)</span> as the nth entry
+in <span class="math inline">\(x\)</span>, <span class="math inline">\(\overline{x}\)</span> be the complex conjugate of
+<span class="math inline">\(x\)</span>.</p>
+<p><span class="math display">\[x^{*}x = \overline{x_{1}}x_{1} +
+\overline{x_{2}}x_{2} + \cdots + \overline{x_{n}}x_{n}\]</span></p>
+<p>Let <span class="math inline">\(x_{n} = a + bi\)</span>, then <span class="math inline">\(\overline{x_{n}} = a - bi\)</span>. And <span class="math inline">\(\overline{x_{n}}x_{n} = a^{2} + b^{2} \in
+\mathbb{R}\)</span></p>
+<p>Thus, <span class="math inline">\(x^{*}x \in \mathbb{R}\)</span>.</p>
 </div>
 <ul>
 <li>Suppose that <span class="math inline">\(A\)</span> is an <span class="math inline">\(n\times n\)</span> matrix with real or complex
@@ -470,7 +485,7 @@ entries and that <span class="math inline">\(x\)</span> is a vector in
 <span class="math inline">\(\mathbb{R}^n\)</span> or <span class="math inline">\(\mathbb{C}^n\)</span>. Is <span class="math inline">\(x^*Ax\)</span> a number, vector, or matrix?</li>
 </ul>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p><span class="math inline">\(x^*Ax\)</span> is a number.</p>
 </div>
 <ul>
 <li>Suppose <span class="math inline">\(A=A^*\)</span> (this includes
@@ -483,7 +498,23 @@ means that <span class="math inline">\(\lambda\)</span> must be a real
 number.</li>
 </ul>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>We can prove <span class="math inline">\(x^*Ax = (x^*Ax)^*\)</span>
+backwardly.</p>
+<p><span class="math display">\[\begin{eqnarray}
+(x^*Ax)^* \nonumber
+&amp;=&amp; (Ax)^{*}(x^{*})^{*} \\ \nonumber
+&amp;=&amp; (Ax)^{*}x \\ \nonumber
+&amp;=&amp;x^{*}A^{*}x \\ \nonumber
+&amp;=&amp;x^{*}Ax \nonumber
+\end{eqnarray}\]</span></p>
+<p>This means that <span class="math inline">\((x^*Ax)^*\)</span> is
+real.</p>
+<p>Then, <span class="math display">\[x^{*}Ax = x^{*}\lambda x = \lambda
+x^{*}x\]</span></p>
+<p>Since both <span class="math inline">\(x^{*}Ax\)</span> and <span class="math inline">\(x^{*}x\)</span> are real, we can divide both side
+by <span class="math inline">\(x^{*}x\)</span>, which is not zero since
+x is nonzero. So we can get <span class="math inline">\(\lambda\)</span>
+is a real number.</p>
 </div>
 <ul>
 <li>Form the matrices <span class="math inline">\(P\)</span> and <span class="math inline">\(S\)</span> in R and use the syntax
@@ -499,7 +530,12 @@ S = \begin{pmatrix}
 \]</span></li>
 </ul>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<pre class="r"><code>P &lt;- matrix(c(-4, 1, 9, 5, 0, 1, 6, 9, 2), nrow = 3, ncol = 3)
+S &lt;- matrix(c(-1, 2, 1, 2, 7, -3, 1, -3, 4), nrow = 3, ncol = 3)
+print(eigen(S)$values)</code></pre>
+<pre><code>## [1]  9  3 -2</code></pre>
+<pre class="r"><code>print(eigen(P)$values)</code></pre>
+<pre><code>## [1]  9.988621+0.000000i -5.994310+2.796074i -5.994310-2.796074i</code></pre>
 </div>
 </div>
 <div id="q3-underdetermined-system" class="section level3">
@@ -517,19 +553,34 @@ approach is to use Lagrange multipliers to minimize <span class="math inline">\(
 acting as the constraint.</em></li>
 </ol>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p><span class="math display">\[\nabla f(x, y, z) = \lambda \nabla g(x,
+y, z)\]</span> <span class="math display">\[&lt;f_{x}, f_{y}, f_{z}&gt;
+= \lambda &lt;g_{x}, g_{y}, g_{z}&gt;\]</span> <span class="math display">\[&lt;2x, 2y, 2z&gt; = \lambda &lt;3, 5,
+6&gt;\]</span> We get <span class="math inline">\(x =
+\frac{3}{2}\lambda\)</span>, <span class="math inline">\(y =
+\frac{5}{2}\lambda\)</span>, <span class="math inline">\(z =
+3\lambda\)</span> <span class="math display">\[3(\frac{3}{2}\lambda) +
+5(\frac{5}{2}\lambda) + 6(3\lambda) = 210\]</span> <span class="math display">\[\lambda = 6\]</span> So, <span class="math inline">\(x = \frac{3}{2}\lambda = 9\)</span>, <span class="math inline">\(y = \frac{5}{2}\lambda = 15\)</span>, <span class="math inline">\(z = 3\lambda = 18\)</span></p>
+<p>Thus, two-norm is <span class="math inline">\(\sqrt{x^{2}+y^{2}+z^{2}} =
+\sqrt{9^{2}+15^{2}+18^{2}} \approx 25.1\)</span></p>
 </div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Find the smallest solution as measured in the one-norm.</li>
 </ol>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>Here we aim to minimize <span class="math inline">\(|x| + |y| +
+|z|\)</span>. It is straightforward that we let <span class="math inline">\(x = 0\)</span>, <span class="math inline">\(y =
+0\)</span>, and let <span class="math inline">\(z = 35\)</span>. In this
+way, we will get the smallest solution, which is 35.</p>
 </div>
 <ol start="3" style="list-style-type: lower-alpha">
 <li>Find the smallest solution as measured in the max-norm.</li>
 </ol>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>Here, we want to minimize <span class="math inline">\(\max(|x|, |y|,
+|z|)\)</span>. So, when <span class="math inline">\(x = y = z\)</span>,
+the result is minimized. And we will get <span class="math inline">\(x =
+y = z = 15\)</span>, and the smallest solution is 15.</p>
 </div>
 <ol start="4" style="list-style-type: lower-alpha">
 <li>Do a web search for “one-norm minimization.” You should quickly
@@ -539,7 +590,15 @@ become important in the last 20 years because of its tendency to produce
 (b) for you?</li>
 </ol>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>if we draw all points that have a L1 norm equals to a constant c, the
+shape looks like a tilted square. We will find a sparse solution by
+enlarging the shape from the origin by giving a growing c to touch the
+solution line we want. The intuition is that the touching point will be
+the tip of the shape. Since the tip is a sparese point, the solution
+will also be a sparse solution. The only situation resulting in
+nonsparse solution will be touching an edge where most of the solutions
+are not sparese, except the two tips. The probability of touching the
+tip is very high. And this also happens in part(b).</p>
 </div>
 </div>
 <div id="q4-not-a-norm" class="section level3">
@@ -554,7 +613,8 @@ That would lead to <span class="math display">\[ \|x\|_{1/2} =
 <li>Find <span class="math inline">\(\|x\|_{1/2}\)</span> if <span class="math inline">\(x^T = (100\;\;\;-25\;\;\;16\;\;\;0)\)</span>.</li>
 </ol>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p><span class="math display">\[\|x\|_{1/2} = (\sqrt{100} + \sqrt{25} +
+\sqrt{16} + \sqrt{0})^{2} = 361\]</span></p>
 </div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Find an example in <span class="math inline">\(\mathbb{R}^3\)</span>
@@ -563,7 +623,12 @@ where the triangle inequality fails. That is, give vectors <span class="math inl
 you can do this on paper, without calculator / R help.</li>
 </ol>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>Let say <span class="math inline">\(v^T = (1\;\;\;1\;\;\;1)\)</span>,
+<span class="math inline">\(w^T = (1\;\;\;1\;\;\;0)\)</span>, then <span class="math inline">\((v+w)^{T} = (2\;\;\;2\;\;\;1)\)</span>.</p>
+<p><span class="math display">\[\|v+w\|_{1/2} = 9 + 4\sqrt{2}\]</span>
+<span class="math display">\[\|v\|_{1/2} + \|w\|_{1/2} = 9 + 4 =
+13\]</span> So, it is clear that <span class="math inline">\(\|v+w\|_{1/2} &gt; \|v\|_{1/2} +
+\|w\|_{1/2}\)</span>.</p>
 </div>
 </div>
 <div id="q5-trapezoid-rule-with-user-specified-tolerance" class="section level3">
@@ -572,7 +637,42 @@ you can do this on paper, without calculator / R help.</li>
 a specified error tolerance (the user does not specify the number of
 quadrature nodes). The first line should be something like this:</p>
 <pre class="r"><code>my.trapezoid &lt;- function(f, a, b, tol=1e-6){
-}</code></pre>
+  n &lt;- 50
+  diff &lt;- 1
+  x &lt;- seq(a, b, length=n)
+  y &lt;- f(x)
+  h &lt;- (b-a) / (n-1)
+  area &lt;- h * sum(y[1:(n-1)]) / 2 + sum(h*y[2:n]) / 2
+  while (diff &gt; tol) {
+    n &lt;- 2*n
+    x &lt;- seq(a, b, length=n)
+    y &lt;- f(x)
+    h &lt;- (b-a) / (n-1)
+    newarea &lt;- h * sum(y[1:(n-1)]) / 2 + sum(h*y[2:n]) / 2
+    diff &lt;- newarea - area
+    area &lt;- newarea
+  }
+  return(area)
+}
+
+test1 &lt;- function(w) {
+  return ((3*(w^0.5))/2000)
+}
+
+test2 &lt;- function(x) {
+  return (exp((x-3)*(x-4)))
+}
+
+test3 &lt;- function(t) {
+  return (((cos(3*t+1))^2)/(1.05+sin(t)))
+}
+
+print(my.trapezoid(test1, 0, 100, 1e-4))</code></pre>
+<pre><code>## [1] 0.9999613</code></pre>
+<pre class="r"><code>print(my.trapezoid(test2, 2, 5, 1e-4))</code></pre>
+<pre><code>## [1] 6.332105</code></pre>
+<pre class="r"><code>print(my.trapezoid(test3, -pi, pi, 1e-4))</code></pre>
+<pre><code>## [1] 10.42987</code></pre>
 <p>Here <span class="math inline">\(f\)</span> is a function, <span class="math inline">\([a,b]\)</span> is the integration interval, and
 <em>tol</em> is the desired accuracy of the result, with default value
 <span class="math inline">\(10^{-6}\)</span>. One challenge here is that
