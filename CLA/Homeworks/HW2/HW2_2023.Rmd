@@ -241,7 +241,7 @@ So, it is clear that $\|v+w\|_{1/2} > \|v\|_{1/2} + \|w\|_{1/2}$.
 Write an R function that carries out trapezoidal rule integration to a specified error tolerance (the user does not specify the number of quadrature nodes). The first line should be something like this: 
 ```{r}
 my.trapezoid <- function(f, a, b, tol=1e-6){
-  n <- 50
+  n <- 4
   diff <- 1
   x <- seq(a, b, length=n)
   y <- f(x)
@@ -253,29 +253,13 @@ my.trapezoid <- function(f, a, b, tol=1e-6){
     y <- f(x)
     h <- (b-a) / (n-1)
     newarea <- h * sum(y[1:(n-1)]) / 2 + sum(h*y[2:n]) / 2
-    diff <- newarea - area
+    diff <- abs(newarea - area)
     area <- newarea
   }
   return(area)
 }
-
-test1 <- function(w) {
-  return ((3*(w^0.5))/2000)
-}
-
-test2 <- function(x) {
-  return (exp((x-3)*(x-4)))
-}
-
-test3 <- function(t) {
-  return (((cos(3*t+1))^2)/(1.05+sin(t)))
-}
-
-print(my.trapezoid(test1, 0, 100, 1e-4))
-print(my.trapezoid(test2, 2, 5, 1e-4))
-print(my.trapezoid(test3, -pi, pi, 1e-4))
-
 ```
+
 Here $f$ is a function, $[a,b]$ is the integration interval, and *tol* is the desired accuracy of the result, with default value $10^{-6}$. 
 One challenge here is that you don't know the exact answer, so it's not obvious how many nodes you'll need or how you would know whether or not your solution is sufficiently close to the true value! One strategy (among many) is to compute it with some number of nodes, then double the number of nodes and try again. If the two answers are sufficiently close together, then you have confidence that your solution is accurate; otherwise you can try again with even more nodes. 
 
@@ -288,6 +272,26 @@ J = \int_2^5 \exp((x-3)(x-4))\,dx,\qquad K = \int_{-\pi}^{\pi} \frac{\cos^2(3t+1
 $$
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+```{r}
+test1 <- function(w) {
+  return ((3*(w^0.5))/2000)
+}
+
+print(my.trapezoid(test1, 0, 100, 1e-4))
+
+test2 <- function(x) {
+  return (exp((x-3)*(x-4)))
+}
+
+print(my.trapezoid(test2, 2, 5, 1e-4))
+
+test3 <- function(t) {
+  return (((cos(3*t+1))^2)/(1.05+sin(t)))
+}
+
+print(my.trapezoid(test3, -pi, pi, 1e-4))
+```
 
 :::
 
@@ -302,11 +306,41 @@ fake.error.2 <- n^(-4)
 plot(n,fake.error.1,type='p',log='xy',col="blue",pch=8,xlab="n",ylab="error")
 lines(n,fake.error.2,type='p',pch=12)
 legend("topright",legend=c("e1","e2"),pch=c(8,12),lwd=2,col=c("blue","black"))
+fake.error.1
 ```
 
 In the correct solution, **fake.error.1[j]** should be the error of the trapezoid rule for integral $J$ using **n[j]** function evaluations, while **fake.error.2** should be the errors for integral $K$. 
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+```{r}
+my.error <- function(f, a, b, n, real){
+  x <- seq(a, b, length=n)
+  y <- f(x)
+  h <- (b-a) / (n-1)
+  area <- h * sum(y[1:(n-1)]) / 2 + sum(h*y[2:n]) / 2
+  return(abs(real - area))
+}
+
+n <- 2^(2:12)
+fake.error.1 <- c(1:11)
+fake.error.2 <- c(1:11)
+
+step <- 1
+for (i in n) {
+  fake.error.1[step] <- my.error(test2, 2, 5, i, 6.32871)
+  fake.error.2[step] <- my.error(test3, -pi, pi, i, 10.4299)
+  step <- step + 1
+}
+```
+
+
+```{r}
+plot(n,fake.error.1,type='p',log='xy',col="blue",pch=8,xlab="n",ylab="error")
+lines(n,fake.error.2,type='p',pch=12)
+legend("topright",legend=c("e1","e2"),pch=c(8,12),lwd=2,col=c("blue","black"))
+```
+
 
 :::
 
@@ -314,6 +348,40 @@ In the correct solution, **fake.error.1[j]** should be the error of the trapezoi
 Implement the secant method and use it to find a value of $x$ where $\cosh(x) = \sinh(x) + 0.1$. Give at least twelve correct digits. Explain how you pick the two initial guesses. 
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+
+```{r}
+x <- seq(0, 5, length=1000)
+y <- sinh(x) - cosh(x) + 0.1
+plot(x, y, type="l")
+grid()
+```
+
+```{r}
+f <- function(x) {
+  return(sinh(x) - cosh(x) + 0.1)
+}
+
+my.bisect <- function(f, a, b) {
+  options(digits=13)
+  if (f(a)*f(b) > 0) {
+    stop("Wrong Guess")
+  }
+  guess <- (a+b) / 2
+  while (abs(a-b) > 1e-13) {
+    if (f(a)*f(guess) < 0) {
+      b <- guess
+    }
+    else {
+      a <- guess
+    }
+    guess <- (a+b) / 2
+  }
+  return(guess)
+}
+
+print(my.bisect(f, 2, 3))
+```
 
 :::
 
@@ -352,6 +420,11 @@ A = \begin{pmatrix}
 $$
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+```{r}
+
+```
+
 
 :::
 
