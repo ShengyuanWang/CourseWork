@@ -421,10 +421,35 @@ $$
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
-```{r}
+Diagonal:
+We will take $x_{i} = \frac{b_{i}}{A_{ii}}$
+\[x_{1} = \frac{3}{2} = 1.5\]
+\[x_{2} = \frac{6}{3} = 2\]
+\[x_{3} = \frac{5}{-0.5} = -10\]
+\[x = \begin{pmatrix}1.5\\2\\-10  \end{pmatrix}\]
 
-```
+Upper Triangular:
+We solve x by get entries of the solution one at a time, starting with the last entry of x and work up, doing backward subtitution.
 
+\[x_{3} = \frac{5}{-0.5} = 10\]
+\[x_{2} = \frac{7 - 2\times(-10)}{3} = 9\]
+\[x_{1} = \frac{3 - 10 - 9}{2} = -8\]
+\[x = \begin{pmatrix}-8\\9\\-10  \end{pmatrix}\]
+
+Lower Triangular:
+We solve x by get entries of the solution one at a time, starting from the top and doing forward substitution.
+\[x_{1} = \frac{4}{2} = 2\]
+\[x_{2} = \frac{6 - 0}{3} = 2\]
+\[x_{3} = \frac{5-6+2}{-0.5} = -2\]
+\[x = \begin{pmatrix}2\\2\\-2  \end{pmatrix}\]
+
+Orthogonal:
+We use $A^{T}b$ to solve x.
+\[x = \begin{pmatrix}9\\6\\-3  \end{pmatrix}\]
+
+Permutation:
+The result $x$ is the reordering of $b$. 
+\[x = \begin{pmatrix}5\\3\\1\\6  \end{pmatrix}\]
 
 :::
 

@@ -815,7 +815,29 @@ A = \begin{pmatrix}
 \end{pmatrix};\quad b = \begin{pmatrix}3\\6\\5\\1  \end{pmatrix}
 \]</span></p>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>Diagonal: We will take <span class="math inline">\(x_{i} =
+\frac{b_{i}}{A_{ii}}\)</span> <span class="math display">\[x_{1} =
+\frac{3}{2} = 1.5\]</span> <span class="math display">\[x_{2} =
+\frac{6}{3} = 2\]</span> <span class="math display">\[x_{3} =
+\frac{5}{-0.5} = -10\]</span> <span class="math display">\[x =
+\begin{pmatrix}1.5\\2\\-10  \end{pmatrix}\]</span></p>
+<p>Upper Triangular: We solve x by get entries of the solution one at a
+time, starting with the last entry of x and work up, doing backward
+subtitution.</p>
+<p><span class="math display">\[x_{3} = \frac{5}{-0.5} = 10\]</span>
+<span class="math display">\[x_{2} = \frac{7 - 2\times(-10)}{3} =
+9\]</span> <span class="math display">\[x_{1} = \frac{3 - 10 - 9}{2} =
+-8\]</span> <span class="math display">\[x =
+\begin{pmatrix}-8\\9\\-10  \end{pmatrix}\]</span></p>
+<p>Lower Triangular: We solve x by get entries of the solution one at a
+time, starting from the top and doing forward substitution. <span class="math display">\[x_{1} = \frac{4}{2} = 2\]</span> <span class="math display">\[x_{2} = \frac{6 - 0}{3} = 2\]</span> <span class="math display">\[x_{3} = \frac{5-6+2}{-0.5} = -2\]</span> <span class="math display">\[x =
+\begin{pmatrix}2\\2\\-2  \end{pmatrix}\]</span></p>
+<p>Orthogonal: We use <span class="math inline">\(A^{T}b\)</span> to
+solve x. <span class="math display">\[x =
+\begin{pmatrix}9\\6\\-3  \end{pmatrix}\]</span></p>
+<p>Permutation: The result <span class="math inline">\(x\)</span> is the
+reordering of <span class="math inline">\(b\)</span>. <span class="math display">\[x =
+\begin{pmatrix}5\\3\\1\\6  \end{pmatrix}\]</span></p>
 </div>
 </div>
 
