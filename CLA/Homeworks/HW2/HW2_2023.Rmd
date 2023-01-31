@@ -21,7 +21,7 @@ Who did you work with on this assignment? You'll get a bonus 5 points if you nam
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
-Name: Wenxuan Zhu
+Name: Wenxuan / Carissa
 
 I worked with Wenxuan on this assignment.
 
@@ -52,7 +52,7 @@ So the line uses 1000 multiplications and 999 additions, 1999 flops in total.
 
 Let denote $A_{1}$ as the first row in $A$
 
-\[A_{1}x = a_{1,1}*x_{1}+ \cdots +a_{1,1000}*x_{1000})\]
+\[A_{1}x = a_{1,1}*x_{1}+ \cdots +a_{1,1000}*x_{1000}\]
 \[flop(Ax) = flop(A_{1}x) + flop(A_{2}x) + \cdots + flop(A_{1000}x)\]
 
 From previous question, we can find there are 1999 flops in each brackets. In this problem, we can conclude that there will be $1999\times1000 = 1999000$ flops.
@@ -63,7 +63,7 @@ From previous question, we can find there are 1999 flops in each brackets. In th
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
 Let $A_{n}$ be the nth column of $A$. From the previous question, we can see $Ax$ will result in 1999000 flops. 
-\[flop(AA) = flop(AA_{1}) + flop(AA_{2}) + \cdots + flop(AA_{1000})\]
+\[flop(AA) = flop(AA_{1}) + flop(AA_{2}) + \cdots + flop(AA_{1000}）\]
 So this time, there will be $1999000 * 1000 = 1999000000$ flops.
 
 :::
@@ -87,16 +87,13 @@ And the total flops of $u(v^{T}x)$ is 2999 flops.
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
-\[
-\begin{eqnarray}
+\[\begin{eqnarray}
 w^{*}w \nonumber
 &=& \begin{pmatrix}2-3i \quad 4+i \quad 10i\end{pmatrix}\begin{pmatrix}2+3i\\4-i\\-10i\end{pmatrix} \\ \nonumber
 &=& (2-3i)(2+3i)+(4+i)(4-i)+(10i)(-10i) \\ \nonumber
 &=& 13 + 17 + 100 \\ \nonumber
 &=& 130 \nonumber
-\end{eqnarray}
-
-\]
+\end{eqnarray}\]
 
 
 :::
