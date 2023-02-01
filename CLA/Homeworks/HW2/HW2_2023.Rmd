@@ -23,7 +23,7 @@ Who did you work with on this assignment? You'll get a bonus 5 points if you nam
 
 Name: Wenxuan / Carissa
 
-I worked with Wenxuan on this assignment.
+I worked with Wenxuan and Carissa on this assignment.
 
 :::
 
@@ -206,7 +206,7 @@ Here, we want to minimize $\max(|x|, |y|, |z|)$. So, when $x = y = z$, the resul
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
-if we draw all points that have a L1 norm equals to a constant c, the shape looks like a tilted square. We will find a sparse solution by enlarging the shape from the origin by giving a growing c to touch the solution line we want. The intuition is that the touching point will be the tip of the shape. Since the tip is a sparese point, the solution will also be a sparse solution. The only situation resulting in nonsparse solution will be touching an edge where most of the solutions are not sparese, except the two tips. The probability of touching the tip is very high. And this also happens in part(b). 
+If we draw all points that have a L1 norm equals to a constant c, the shape looks like a tilted square. We will find a sparse solution by enlarging the shape from the origin by giving a growing c to touch the solution line we want. The intuition is that the touching point will be the tip of the shape. Since the tip is a sparese point, the solution will also be a sparse solution. The only situation resulting in nonsparse solution will be touching an edge where most of the solutions are not sparese, except the two tips. The probability of touching the tip is very high. And this also happens in part(b). 
 
 :::
 
@@ -311,6 +311,14 @@ In the correct solution, **fake.error.1[j]** should be the error of the trapezoi
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
 ```{r}
+options(digits=13)
+J <- integrate(test2, lower = 2, upper = 5)
+J
+K <- integrate(test3, lower = -pi, upper = pi)
+K
+```
+
+```{r}
 my.error <- function(f, a, b, n, real){
   x <- seq(a, b, length=n)
   y <- f(x)
@@ -325,15 +333,15 @@ fake.error.2 <- c(1:11)
 
 step <- 1
 for (i in n) {
-  fake.error.1[step] <- my.error(test2, 2, 5, i, 6.32871)
-  fake.error.2[step] <- my.error(test3, -pi, pi, i, 10.4299)
+  fake.error.1[step] <- my.error(test2, 2, 5, i, 6.32871282113)
+  fake.error.2[step] <- my.error(test3, -pi, pi, i, 10.42986997221)
   step <- step + 1
 }
 ```
 
 
 ```{r}
-plot(n,fake.error.1,type='p',log='xy',col="blue",pch=8,xlab="n",ylab="error")
+plot(n,fake.error.1,type='p',log='xy',col="blue",pch=8,xlab="n",ylab="error", ylim=c(1e-10, 5))
 lines(n,fake.error.2,type='p',pch=12)
 legend("topright",legend=c("e1","e2"),pch=c(8,12),lwd=2,col=c("blue","black"))
 ```
