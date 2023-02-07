@@ -1,25 +1,31 @@
 ---
 title: "MiniProject_CLA_Shengyuan_Wenxuan"
-author: "Shengyuan Wang"
+author: "Shengyuan Wang / Wenxuan Zhu"
 date: "2023-02-02"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+<center>
+![](img/pic1.jpeg){width=8cm}
+</center>
 
-![](img/pic1.jpeg)
+From the graph, we can conclude the following four equations.
+$$0 = -gm_{1} + k(L-(y_{1}-0)) - k(L-(y_{2}-y_{1}))$$
+$$0 = -gm_{2} + k(L-(y_{2}-y_{1})) - k(L-(y_{3}-y_{2}))$$
+$$0 = -gm_{3} + k(L-(y_{3}-y_{2})) - k(L-(y_{4}-y_{3}))$$
+$$0 = -gm_{4} + k(L-(y_{4}-y_{3})) - k(L-(H-y_{4}))$$
+And we can change the equations into the matrix form.
 
-\[0 = -gm_{1} + k(L-(y_{1}-0)) - k(L-(y_{2}-y_{1}))\]
-\[0 = -gm_{2} + k(L-(y_{2}-y_{1})) - k(L-(y_{3}-y_{2}))\]
-\[0 = -gm_{3} + k(L-(y_{3}-y_{2})) - k(L-(y_{4}-y_{3}))\]
-\[0 = -gm_{4} + k(L-(y_{4}-y_{3})) - k(L-(H-y_{4}))\]2
-\[\begin{pmatrix} -2k&k&0&0\\k&-2k&k&0 \\0&k&-2k&k \\ 0&0&k&-2k\end{pmatrix} \begin{pmatrix}y_{1}\\y_{2}\\y_{3}\\y_{4}\end{pmatrix} = \begin{pmatrix}gm_{1}\\gm_{2}\\gm_{3}\\gm_{4}-kH\end{pmatrix}\]
-k = 5 N/m
-g = 10 m/s^{2}
-m1 = m2 = m3 = 1kg
-H = 2m
+$$\begin{pmatrix} -2k&k&0&0\\k&-2k&k&0 \\0&k&-2k&k \\ 0&0&k&-2k\end{pmatrix} \begin{pmatrix}y_{1}\\y_{2}\\y_{3}\\y_{4}\end{pmatrix} = \begin{pmatrix}gm_{1}\\gm_{2}\\gm_{3}\\gm_{4}-kH\end{pmatrix}$$
+
+Now we can pick some parameters and solve the matrix.
+We pick $k = 5N/kg$, $g = 10 m/s^{2}$, $m_1 = m_2 = m_3 = m_4= 1kg$, $H = 40m$. 
 
 ```{r}
 # initialize variables 
@@ -44,4 +50,11 @@ x <- qr.solve(A,b)
 x
 ```
 
-![](img/pic2.jpeg)
+Here, we get the result x as $\begin{pmatrix}4 \\ 10 \\ 18 \\ 28\end{pmatrix}$
+
+
+<center>
+![](img/pic2.jpeg){width=8cm}
+</center>
+
+Just as shown in the graph above, the four objects are at the hegiht of 4m, 10m, 18m, 28m. And the total height is 40m.
