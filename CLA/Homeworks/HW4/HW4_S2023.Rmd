@@ -61,7 +61,7 @@ Then show that it works by creating and describing a simple example where you fi
 
 We can let $c^{T} = (a, b, c, d, e, f, g)$
 \[f_{c}(x) = a + b\cos(x) + c\sin(x)+d\cos(2x)+e\sin(2x) +f\cos(3x)+g\sin(3x)\]
-\[f'_{c}(x) = f_{d}(x) = 0 -b\cos(x)+c\cos(x)-2d\sin(2x)+2e\cos(2x)-3f\sin(3x)+3g\cos(3x)\]
+\[f'_{c}(x) = f_{d}(x) = 0 -b\sin(x)+c\cos(x)-2d\sin(2x)+2e\cos(2x)-3f\sin(3x)+3g\cos(3x)\]
 Thus, we can get $d^{T} = (0, c, -b, 2e, -2d, 3g, -3f)$
 So, the matrix $A$ here is to rearrange the entries of c^{T} and add scalar to change into $d^{T}$.
 \[\begin{pmatrix}0&0&0&0&0&0&0\\0&0&1&0&0&0&0\\0&-1&0&0&0&0&0\\0&0&0&0&2&0&0\\0&0&0&-2&0&0&0\\0&0&0&0&0&0&3\\0&0&0&0&0&-3&0\end{pmatrix}\begin{pmatrix}a\\b\\c\\d\\e\\f\\g\end{pmatrix} = \begin{pmatrix}0\\c\\-b\\2e\\-2d\\3g\\-3f\end{pmatrix}\]

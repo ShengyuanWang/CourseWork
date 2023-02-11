@@ -11,7 +11,7 @@
 
 <meta name="author" content="Shengyuan Wang" />
 
-<meta name="date" content="2023-02-10" />
+<meta name="date" content="2023-02-11" />
 
 <title>HW4</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">HW4</h1>
 <h4 class="author">Shengyuan Wang</h4>
-<h4 class="date">2023-02-10</h4>
+<h4 class="date">2023-02-11</h4>
 
 </div>
 
@@ -426,7 +426,7 @@ multiplication with <span class="math inline">\(A\)</span>.</p>
 <p>We can let <span class="math inline">\(c^{T} = (a, b, c, d, e, f,
 g)\)</span> <span class="math display">\[f_{c}(x) = a + b\cos(x) +
 c\sin(x)+d\cos(2x)+e\sin(2x) +f\cos(3x)+g\sin(3x)\]</span> <span class="math display">\[f&#39;_{c}(x) = f_{d}(x) = 0
--b\cos(x)+c\cos(x)-2d\sin(2x)+2e\cos(2x)-3f\sin(3x)+3g\cos(3x)\]</span>
+-b\sin(x)+c\cos(x)-2d\sin(2x)+2e\cos(2x)-3f\sin(3x)+3g\cos(3x)\]</span>
 Thus, we can get <span class="math inline">\(d^{T} = (0, c, -b, 2e, -2d,
 3g, -3f)\)</span> So, the matrix <span class="math inline">\(A\)</span>
 here is to rearrange the entries of c^{T} and add scalar to change into
@@ -497,7 +497,7 @@ while (illegal &lt; 1000000) {
   accounts &lt;- accounts + interest
 }
 step</code></pre>
-<pre><code>## [1] 19997</code></pre>
+<pre><code>## [1] 19998</code></pre>
 </div>
 </div>
 <div id="q4-timing-of-a-qr" class="section level3">
@@ -514,14 +514,14 @@ for (j in 1:1000000){
 }
 tend &lt;- Sys.time()
 print(tend - tstart)</code></pre>
-<pre><code>## Time difference of 0.01791096 secs</code></pre>
+<pre><code>## Time difference of 0.01788497 secs</code></pre>
 <p>It is much faster to create a vector and sum the entries, avoiding
 the for-loop! Example:</p>
 <pre class="r"><code>tstart = Sys.time()
 t &lt;- sum(1:1000000)
 tend &lt;- Sys.time()
 print(tend - tstart)</code></pre>
-<pre><code>## Time difference of 0.002323866 secs</code></pre>
+<pre><code>## Time difference of 0.002089977 secs</code></pre>
 <pre class="r"><code>my.QR &lt;- function(A){
   # This is the numerically stable (good) version 
   # Also known as &quot;modified Gram-Schmidt&quot; or &quot;mgs&quot;
@@ -572,11 +572,11 @@ course spreadsheet.</em> Which is faster?</li>
 <pre class="r"><code>print(&#39;The result of factorization of matrix 100*100 using our function:&#39;)</code></pre>
 <pre><code>## [1] &quot;The result of factorization of matrix 100*100 using our function:&quot;</code></pre>
 <pre class="r"><code>ourSol(100)</code></pre>
-<pre><code>## Time difference of 0.1262 secs</code></pre>
+<pre><code>## Time difference of 0.13006 secs</code></pre>
 <pre class="r"><code>print(&#39;The result of factorization of matrix 100*100 using built in function:&#39;)</code></pre>
 <pre><code>## [1] &quot;The result of factorization of matrix 100*100 using built in function:&quot;</code></pre>
 <pre class="r"><code>builtInSol(100)</code></pre>
-<pre><code>## Time difference of 0.00149703 secs</code></pre>
+<pre><code>## Time difference of 0.00205183 secs</code></pre>
 </div>
 <ul>
 <li>Now try a <span class="math inline">\(200\times200\)</span> matrix
@@ -591,21 +591,21 @@ factor of 8”.</li>
 <pre class="r"><code>print(&#39;The result of factorization of matrix 200*200 using our function:&#39;)</code></pre>
 <pre><code>## [1] &quot;The result of factorization of matrix 200*200 using our function:&quot;</code></pre>
 <pre class="r"><code>ourSol(200)</code></pre>
-<pre><code>## Time difference of 0.6903911 secs</code></pre>
+<pre><code>## Time difference of 0.715615 secs</code></pre>
 <pre class="r"><code>print(&#39;The result of factorization of matrix 200*200 using built in function:&#39;)</code></pre>
 <pre><code>## [1] &quot;The result of factorization of matrix 200*200 using built in function:&quot;</code></pre>
 <pre class="r"><code>builtInSol(200)</code></pre>
-<pre><code>## Time difference of 0.004491091 secs</code></pre>
+<pre><code>## Time difference of 0.01397705 secs</code></pre>
 <pre class="r"><code>print(&#39;-------------------------------------------------------------------------&#39;)</code></pre>
 <pre><code>## [1] &quot;-------------------------------------------------------------------------&quot;</code></pre>
 <pre class="r"><code>print(&#39;The result of factorization of matrix 400*400 using our function:&#39;)</code></pre>
 <pre><code>## [1] &quot;The result of factorization of matrix 400*400 using our function:&quot;</code></pre>
 <pre class="r"><code>ourSol(400)</code></pre>
-<pre><code>## Time difference of 5.208131 secs</code></pre>
+<pre><code>## Time difference of 5.196775 secs</code></pre>
 <pre class="r"><code>print(&#39;The result of factorization of matrix 400*400 using built in function:&#39;)</code></pre>
 <pre><code>## [1] &quot;The result of factorization of matrix 400*400 using built in function:&quot;</code></pre>
 <pre class="r"><code>builtInSol(400)</code></pre>
-<pre><code>## Time difference of 0.09296012 secs</code></pre>
+<pre><code>## Time difference of 0.168314 secs</code></pre>
 </div>
 <ul>
 <li>An hour is 3600 seconds. Predict how large a matrix you can factor
