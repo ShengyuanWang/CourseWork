@@ -483,7 +483,21 @@ illegal account. The <code>break</code> command breaks out of a loop.
 Or, perhaps more elegantly, you might use a <code>while</code> loop</p>
 <pre><code>while (illegal &lt; 1000000) { do stuff here }</code></pre>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
+<pre class="r"><code>accounts &lt;- runif(10000, 100, 100000)
 
+illegal &lt;- 0
+step &lt;- 0
+while (illegal &lt; 1000000) { 
+  step &lt;- step + 1
+  before &lt;- sum(accounts)
+  accounts &lt;- floor(accounts*100)/100
+  after &lt;- sum(accounts)
+  illegal &lt;- illegal + before - after
+  interest &lt;- accounts*(.05/365)
+  accounts &lt;- accounts + interest
+}
+step</code></pre>
+<pre><code>## [1] 19997</code></pre>
 </div>
 </div>
 <div id="q4-timing-of-a-qr" class="section level3">
@@ -500,32 +514,106 @@ for (j in 1:1000000){
 }
 tend &lt;- Sys.time()
 print(tend - tstart)</code></pre>
-<pre><code>## Time difference of 0.02654409 secs</code></pre>
+<pre><code>## Time difference of 0.01791096 secs</code></pre>
 <p>It is much faster to create a vector and sum the entries, avoiding
 the for-loop! Example:</p>
 <pre class="r"><code>tstart = Sys.time()
 t &lt;- sum(1:1000000)
 tend &lt;- Sys.time()
 print(tend - tstart)</code></pre>
-<pre><code>## Time difference of 0.002492189 secs</code></pre>
+<pre><code>## Time difference of 0.002323866 secs</code></pre>
+<pre class="r"><code>my.QR &lt;- function(A){
+  # This is the numerically stable (good) version 
+  # Also known as &quot;modified Gram-Schmidt&quot; or &quot;mgs&quot;
+  # The input A must be square and invertible
+  d &lt;- dim(A)
+  n &lt;- d[1] # the matrix A is n-by-n
+  Q &lt;- 0*A  # Start with a Q full of zeros
+  R &lt;- 0*A  # Start with an R full of zeros
+  my.len &lt;- function(v){return(sqrt(sum(v^2)))} 
+  for (i in 1:(n-1)){ # loop over rows of R, except the last 
+    R[i,i] &lt;- my.len(A[,i])  # find diagonal entry in R
+    Q[,i] &lt;- A[,i] / R[i,i]  # find i-th column of Q
+    for (j in (i+1):n){
+      R[i,j] &lt;- sum(Q[,i] * A[,j]) # fill in the row in R
+      A[,j] &lt;- A[,j] - R[i,j]*Q[,i] # modify col of A
+      # Previous line is the &quot;modified&quot; part of the algorithm
+      # We overwrite cols of A as we go. 
+    }
+  }
+  R[n,n] &lt;- my.len(A[,n]) # get the last diagonal entry of R 
+  Q[,n] &lt;- A[,n] / R[n,n] # get the last column of Q
+  return(list(R=R,Q=Q))
+}
+
+ourSol &lt;- function(n) {
+  m &lt;- matrix(rpois(25, 5), nrow = n, ncol=n)
+  tstart = Sys.time()
+  myQRthing &lt;- my.QR(m)
+  tend &lt;- Sys.time()
+  print(tend - tstart)
+}
+
+builtInSol &lt;- function(n) {
+  m &lt;- matrix(rpois(25, 5), nrow = n, ncol=n)
+  tstart = Sys.time()
+  myQRthing &lt;- qr(m)
+  tend &lt;- Sys.time()
+  print(tend - tstart)
+}</code></pre>
 <ul>
 <li>Make a random <span class="math inline">\(100\times100\)</span>
 matrix <span class="math inline">\(A\)</span> and time the factorization
 <span class="math inline">\(A = QR\)</span> using our code and the
 built-in one. <em>Our code is in the activity from the A=QR day in the
-course spreadsheet.</em> Which is faster?<br />
-</li>
+course spreadsheet.</em> Which is faster?</li>
+</ul>
+<div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
+<pre class="r"><code>print(&#39;The result of factorization of matrix 100*100 using our function:&#39;)</code></pre>
+<pre><code>## [1] &quot;The result of factorization of matrix 100*100 using our function:&quot;</code></pre>
+<pre class="r"><code>ourSol(100)</code></pre>
+<pre><code>## Time difference of 0.1262 secs</code></pre>
+<pre class="r"><code>print(&#39;The result of factorization of matrix 100*100 using built in function:&#39;)</code></pre>
+<pre><code>## [1] &quot;The result of factorization of matrix 100*100 using built in function:&quot;</code></pre>
+<pre class="r"><code>builtInSol(100)</code></pre>
+<pre><code>## Time difference of 0.00149703 secs</code></pre>
+</div>
+<ul>
 <li>Now try a <span class="math inline">\(200\times200\)</span> matrix
 and a <span class="math inline">\(400\times400\)</span> matrix. Use the
 built-in code. Complete the sentence: “When I double the dimension of
 <span class="math inline">\(A\)</span>, the computation time for <span class="math inline">\(A = QR\)</span> gets multiplied by approximately a
-factor of ???”.<br />
-</li>
+factor of 8”.</li>
+</ul>
+<div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
+<pre class="r"><code>print(&#39;-------------------------------------------------------------------------&#39;)</code></pre>
+<pre><code>## [1] &quot;-------------------------------------------------------------------------&quot;</code></pre>
+<pre class="r"><code>print(&#39;The result of factorization of matrix 200*200 using our function:&#39;)</code></pre>
+<pre><code>## [1] &quot;The result of factorization of matrix 200*200 using our function:&quot;</code></pre>
+<pre class="r"><code>ourSol(200)</code></pre>
+<pre><code>## Time difference of 0.6903911 secs</code></pre>
+<pre class="r"><code>print(&#39;The result of factorization of matrix 200*200 using built in function:&#39;)</code></pre>
+<pre><code>## [1] &quot;The result of factorization of matrix 200*200 using built in function:&quot;</code></pre>
+<pre class="r"><code>builtInSol(200)</code></pre>
+<pre><code>## Time difference of 0.004491091 secs</code></pre>
+<pre class="r"><code>print(&#39;-------------------------------------------------------------------------&#39;)</code></pre>
+<pre><code>## [1] &quot;-------------------------------------------------------------------------&quot;</code></pre>
+<pre class="r"><code>print(&#39;The result of factorization of matrix 400*400 using our function:&#39;)</code></pre>
+<pre><code>## [1] &quot;The result of factorization of matrix 400*400 using our function:&quot;</code></pre>
+<pre class="r"><code>ourSol(400)</code></pre>
+<pre><code>## Time difference of 5.208131 secs</code></pre>
+<pre class="r"><code>print(&#39;The result of factorization of matrix 400*400 using built in function:&#39;)</code></pre>
+<pre><code>## [1] &quot;The result of factorization of matrix 400*400 using built in function:&quot;</code></pre>
+<pre class="r"><code>builtInSol(400)</code></pre>
+<pre><code>## Time difference of 0.09296012 secs</code></pre>
+</div>
+<ul>
 <li>An hour is 3600 seconds. Predict how large a matrix you can factor
 in one hour on your machine.</li>
 </ul>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>If use our function, the matrix will be 3200 * 3200. However, if use
+build-in function, the matrix will be 7000 * 7000</p>
 </div>
 </div>
 <div id="q5-a-rank-one-matrix-is-not-invertible" class="section level3">
@@ -537,13 +625,26 @@ and let <span class="math inline">\(b = (5,-10,-12)\)</span>.</p>
 <li>Show that <span class="math inline">\(A\)</span> has rank one by
 finding <span class="math inline">\(u,v\in\mathbb{R}^3\)</span> such
 that <span class="math inline">\(A = uv^T\)</span>.</li>
+</ul>
+<div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
+<p><span class="math display">\[\begin{pmatrix}
+-1&amp;1&amp;-2\\2&amp;-2&amp;4\\4&amp;-4&amp;8 \end{pmatrix} =
+\begin{pmatrix}-1 \\2\\4\end{pmatrix}
+\begin{pmatrix}1&amp;-1&amp;2\end{pmatrix}\]</span></p>
+</div>
+<ul>
 <li>Because rank-one matrices are not invertible, we know that the
 equation <span class="math inline">\(Ax=b\)</span> has either infinitely
 many solutions or none. If there is no <span class="math inline">\(x\)</span> with <span class="math inline">\(Ax=b\)</span>, explain why not. If there are
 infinitely many <span class="math inline">\(x\)</span> with <span class="math inline">\(Ax=b\)</span>, give two examples.</li>
 </ul>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<p>There is no <span class="math inline">\(x\)</span> with <span class="math inline">\(Ax = b\)</span>. Since <span class="math inline">\(A\)</span> is a rank-one matrix, in order to have
+some solution for the equation, <span class="math inline">\(b\)</span>
+have to be in the form of <span class="math inline">\(c\begin{pmatrix}-1\\2\\4\end{pmatrix}\)</span>.
+Clearly, in this question, <span class="math inline">\(b\)</span> is not
+in that form, so we have no <span class="math inline">\(x\)</span> with
+<span class="math inline">\(Ax=b\)</span>.</p>
 </div>
 </div>
 <div id="q6-how-close-to-tiger" class="section level3">
@@ -630,7 +731,35 @@ to zero, or maybe if <span class="math inline">\(\frac{|v-w|_1}{|v|_1}\)</span> 
 or maybe if <span class="math inline">\(\frac{|v-w|_2}{|v|_2}\)</span>
 is close to zero.</em></p>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-
+<pre class="r"><code>library(pracma)
+check &lt;- function(word1, word2) {
+  vTw = t(word1)%*%word2
+  v_value = Norm(t(word1), 2)
+  w_value = Norm(t(word2), 2)
+  print(vTw/(v_value*w_value))
+}</code></pre>
+<pre class="r"><code># lion
+check(tiger, lion)</code></pre>
+<pre><code>##           [,1]
+## [1,] 0.5121041</code></pre>
+<pre class="r"><code>check(tiger, cat)</code></pre>
+<pre><code>##           [,1]
+## [1,] 0.5172962</code></pre>
+<pre class="r"><code>check(tiger, horse)</code></pre>
+<pre><code>##           [,1]
+## [1,] 0.2876559</code></pre>
+<pre class="r"><code>check(tiger, octopus)</code></pre>
+<pre><code>##           [,1]
+## [1,] 0.2439948</code></pre>
+<pre class="r"><code>check(tiger, snail)</code></pre>
+<pre><code>##           [,1]
+## [1,] 0.2244429</code></pre>
+<pre class="r"><code>check(tiger, beetle)</code></pre>
+<pre><code>##           [,1]
+## [1,] 0.3287175</code></pre>
+<pre class="r"><code>check(tiger, pencil)</code></pre>
+<pre><code>##           [,1]
+## [1,] 0.1348347</code></pre>
 </div>
 </div>
 

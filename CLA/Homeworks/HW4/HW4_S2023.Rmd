@@ -91,10 +91,7 @@ Assume the following details:
 
 Your job is to write an R script that simulates this situation and *finds how long it takes for the illegal account to reach a million dollars*.
 
-```{r}
-accounts <- runif(10000, 100, 100000)
-accounts
-```
+
 
 -------------------
 
@@ -126,7 +123,22 @@ while (illegal < 1000000) { do stuff here }
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
+```{r}
+accounts <- runif(10000, 100, 100000)
 
+illegal <- 0
+step <- 0
+while (illegal < 1000000) { 
+  step <- step + 1
+  before <- sum(accounts)
+  accounts <- floor(accounts*100)/100
+  after <- sum(accounts)
+  illegal <- illegal + before - after
+  interest <- accounts*(.05/365)
+  accounts <- accounts + interest
+}
+step
+```
 :::
 
 ### Q4 Timing of A = QR
@@ -148,23 +160,100 @@ t <- sum(1:1000000)
 tend <- Sys.time()
 print(tend - tstart)
 ```
+
+```{r}
+my.QR <- function(A){
+  # This is the numerically stable (good) version 
+  # Also known as "modified Gram-Schmidt" or "mgs"
+  # The input A must be square and invertible
+  d <- dim(A)
+  n <- d[1] # the matrix A is n-by-n
+  Q <- 0*A  # Start with a Q full of zeros
+  R <- 0*A  # Start with an R full of zeros
+  my.len <- function(v){return(sqrt(sum(v^2)))} 
+  for (i in 1:(n-1)){ # loop over rows of R, except the last 
+    R[i,i] <- my.len(A[,i])  # find diagonal entry in R
+    Q[,i] <- A[,i] / R[i,i]  # find i-th column of Q
+    for (j in (i+1):n){
+      R[i,j] <- sum(Q[,i] * A[,j]) # fill in the row in R
+      A[,j] <- A[,j] - R[i,j]*Q[,i] # modify col of A
+      # Previous line is the "modified" part of the algorithm
+      # We overwrite cols of A as we go. 
+    }
+  }
+  R[n,n] <- my.len(A[,n]) # get the last diagonal entry of R 
+  Q[,n] <- A[,n] / R[n,n] # get the last column of Q
+  return(list(R=R,Q=Q))
+}
+
+ourSol <- function(n) {
+  m <- matrix(rpois(25, 5), nrow = n, ncol=n)
+  tstart = Sys.time()
+  myQRthing <- my.QR(m)
+  tend <- Sys.time()
+  print(tend - tstart)
+}
+
+builtInSol <- function(n) {
+  m <- matrix(rpois(25, 5), nrow = n, ncol=n)
+  tstart = Sys.time()
+  myQRthing <- qr(m)
+  tend <- Sys.time()
+  print(tend - tstart)
+}
+```
 * Make a random $100\times100$ matrix $A$ and time the factorization $A = QR$ using our code and the built-in one. *Our code is in the activity from the A=QR day in the course spreadsheet.* Which is faster?  
-* Now try a $200\times200$ matrix and a $400\times400$ matrix. Use the built-in code. Complete the sentence: "When I double the dimension of $A$, the computation time for $A = QR$ gets multiplied by approximately a factor of ???".  
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+```{r}
+print('The result of factorization of matrix 100*100 using our function:')
+ourSol(100)
+print('The result of factorization of matrix 100*100 using built in function:')
+builtInSol(100)
+```
+:::
+
+* Now try a $200\times200$ matrix and a $400\times400$ matrix. Use the built-in code. Complete the sentence: "When I double the dimension of $A$, the computation time for $A = QR$ gets multiplied by approximately a factor of 8".  
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+```{r}
+print('-------------------------------------------------------------------------')
+print('The result of factorization of matrix 200*200 using our function:')
+ourSol(200)
+print('The result of factorization of matrix 200*200 using built in function:')
+builtInSol(200)
+print('-------------------------------------------------------------------------')
+print('The result of factorization of matrix 400*400 using our function:')
+ourSol(400)
+print('The result of factorization of matrix 400*400 using built in function:')
+builtInSol(400)
+```
+:::
+
 * An hour is 3600 seconds. Predict how large a matrix you can factor in one hour on your machine. 
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
-
-
+If use our function, the matrix will be 3200 * 3200.
+However, if use build-in function, the matrix will be 7000 * 7000
 :::
+
 
 ### Q5 A rank-one matrix is not invertible 
 Let $A = \begin{pmatrix} -1&1&-2\\2&-2&4\\4&-4&8 \end{pmatrix}$ and let $b = (5,-10,-12)$.
 
  - Show that $A$ has rank one by finding $u,v\in\mathbb{R}^3$ such that $A = uv^T$. 
+ 
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+ 
+ \[\begin{pmatrix} -1&1&-2\\2&-2&4\\4&-4&8 \end{pmatrix} = \begin{pmatrix}-1 \\2\\4\end{pmatrix} \begin{pmatrix}1&-1&2\end{pmatrix}\]
+
+:::
+
  - Because rank-one matrices are not invertible, we know that the equation $Ax=b$ has either infinitely many solutions or none. If there is no $x$ with $Ax=b$, explain why not. If there are infinitely many $x$ with $Ax=b$, give two examples.
  
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 
+There is no $x$ with $Ax = b$. Since $A$ is a rank-one matrix, in order to have some solution for the equation, $b$ have to be in the form of $c\begin{pmatrix}-1\\2\\4\end{pmatrix}$. Clearly, in this question, $b$ is not in that form, so we have no $x$ with $Ax=b$.
 
 :::
 
@@ -335,6 +424,24 @@ The Cauchy-Schwartz inequality says that $|v^Tw| < \|v\|_2 \|w\|_2$, or for nonz
 *Just to ponder, not part of the problem: An alternative to this dot-product method would to say that $v$ and $w$ are close if $\frac{|v-w|_\infty}{|v|_\infty}$ is close to zero, or maybe if $\frac{|v-w|_1}{|v|_1}$ is close to zero, or maybe if $\frac{|v-w|_2}{|v|_2}$ is close to zero.*  
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+```{r}
+library(pracma)
+check <- function(word1, word2) {
+  vTw = t(word1)%*%word2
+  v_value = Norm(t(word1), 2)
+  w_value = Norm(t(word2), 2)
+  print(vTw/(v_value*w_value))
+}
+```
 
-
+```{r}
+# lion
+check(tiger, lion)
+check(tiger, cat)
+check(tiger, horse)
+check(tiger, octopus)
+check(tiger, snail)
+check(tiger, beetle)
+check(tiger, pencil)
+```
 :::
