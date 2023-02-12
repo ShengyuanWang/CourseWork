@@ -66,6 +66,14 @@ Thus, we can get $d^{T} = (0, c, -b, 2e, -2d, 3g, -3f)$
 So, the matrix $A$ here is to rearrange the entries of c^{T} and add scalar to change into $d^{T}$.
 \[\begin{pmatrix}0&0&0&0&0&0&0\\0&0&1&0&0&0&0\\0&-1&0&0&0&0&0\\0&0&0&0&2&0&0\\0&0&0&-2&0&0&0\\0&0&0&0&0&0&3\\0&0&0&0&0&-3&0\end{pmatrix}\begin{pmatrix}a\\b\\c\\d\\e\\f\\g\end{pmatrix} = \begin{pmatrix}0\\c\\-b\\2e\\-2d\\3g\\-3f\end{pmatrix}\]
 
+For example, we have $c^{T} = (1, 1, 1, 1, 1, 1, 1)$. 
+If we do that by hand, we can say 
+\[f_{c}(x) = 1 + \cos(x) + \sin(x) + \cos(2x)+\sin(2x) +\cos(3x)+\sin(3x)\]
+\[f'_{c}(x) = f_{d}(x) = 0 -\sin(x)+\cos(x)-2\sin(2x)+2\cos(2x)-3\sin(3x)+3\cos(3x)\]
+So, we can get $d^{T}=(0, 1, -1, 2, -2, 3, -3)$
+
+When we do that by multiplication with matrix $A$, we will get 
+\[\begin{pmatrix}0&0&0&0&0&0&0\\0&0&1&0&0&0&0\\0&-1&0&0&0&0&0\\0&0&0&0&2&0&0\\0&0&0&-2&0&0&0\\0&0&0&0&0&0&3\\0&0&0&0&0&-3&0\end{pmatrix}\begin{pmatrix}1\\1\\1\\1\\1\\1\\1\end{pmatrix} = \begin{pmatrix}0\\1\\-1\\2\\-2\\3\\-3\end{pmatrix}\]
 :::
 
 ### Q3: Theft
@@ -136,6 +144,8 @@ while (illegal < 1000000) {
   illegal <- illegal + before - after
   interest <- accounts*(.05/365)
   accounts <- accounts + interest
+  illegal_interest <- illegal*(.05/365)
+  illegal <- illegal + illegal_interest
 }
 step
 ```
@@ -206,9 +216,9 @@ builtInSol <- function(n) {
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 ```{r}
-print('The result of factorization of matrix 100*100 using our function:')
+# The result of factorization of matrix 100*100 using our function:
 ourSol(100)
-print('The result of factorization of matrix 100*100 using built in function:')
+# The result of factorization of matrix 100*100 using built in function:
 builtInSol(100)
 ```
 :::
@@ -217,23 +227,20 @@ builtInSol(100)
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
 ```{r}
-print('-------------------------------------------------------------------------')
-print('The result of factorization of matrix 200*200 using our function:')
-ourSol(200)
-print('The result of factorization of matrix 200*200 using built in function:')
+# -------------------------------------------------------------------------
+# The result of factorization of matrix 200*200 using built in function:
 builtInSol(200)
-print('-------------------------------------------------------------------------')
-print('The result of factorization of matrix 400*400 using our function:')
-ourSol(400)
-print('The result of factorization of matrix 400*400 using built in function:')
+# -------------------------------------------------------------------------
+# The result of factorization of matrix 400*400 using built in function
 builtInSol(400)
 ```
 :::
 
+When I double the dimension of $A$, the computation time for $A = QR$ gets multiplied by approximately a factor of 8
+
 * An hour is 3600 seconds. Predict how large a matrix you can factor in one hour on your machine. 
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
-If use our function, the matrix will be 3200 * 3200.
 However, if use build-in function, the matrix will be 7000 * 7000
 :::
 
