@@ -451,4 +451,13 @@ check(tiger, snail)
 check(tiger, beetle)
 check(tiger, pencil)
 ```
+------------- | -------------
+lion | 0.5121041
+cat | 0.5172962
+horse | 0.2876559
+octopus | 0.2439948  
+snail | 0.2244429 
+beetle | 0.3287175 
+pencil | 0.1348347 
+
 :::
