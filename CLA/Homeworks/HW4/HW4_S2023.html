@@ -524,14 +524,14 @@ for (j in 1:1000000){
 }
 tend &lt;- Sys.time()
 print(tend - tstart)</code></pre>
-<pre><code>## Time difference of 0.022012 secs</code></pre>
+<pre><code>## Time difference of 0.02070403 secs</code></pre>
 <p>It is much faster to create a vector and sum the entries, avoiding
 the for-loop! Example:</p>
 <pre class="r"><code>tstart = Sys.time()
 t &lt;- sum(1:1000000)
 tend &lt;- Sys.time()
 print(tend - tstart)</code></pre>
-<pre><code>## Time difference of 0.001512051 secs</code></pre>
+<pre><code>## Time difference of 0.001732111 secs</code></pre>
 <pre class="r"><code>my.QR &lt;- function(A){
   # This is the numerically stable (good) version 
   # Also known as &quot;modified Gram-Schmidt&quot; or &quot;mgs&quot;
@@ -581,10 +581,10 @@ course spreadsheet.</em> Which is faster?</li>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
 <pre class="r"><code># The result of factorization of matrix 100*100 using our function:
 ourSol(100)</code></pre>
-<pre><code>## Time difference of 0.131459 secs</code></pre>
+<pre><code>## Time difference of 0.1255929 secs</code></pre>
 <pre class="r"><code># The result of factorization of matrix 100*100 using built in function:
 builtInSol(100)</code></pre>
-<pre><code>## Time difference of 0.0007169247 secs</code></pre>
+<pre><code>## Time difference of 0.000800848 secs</code></pre>
 </div>
 <ul>
 <li>Now try a <span class="math inline">\(200\times200\)</span> matrix
@@ -597,11 +597,11 @@ factor of 8”.</li>
 <pre class="r"><code># -------------------------------------------------------------------------
 # The result of factorization of matrix 200*200 using built in function:
 builtInSol(200)</code></pre>
-<pre><code>## Time difference of 0.01430416 secs</code></pre>
+<pre><code>## Time difference of 0.01343179 secs</code></pre>
 <pre class="r"><code># -------------------------------------------------------------------------
 # The result of factorization of matrix 400*400 using built in function
 builtInSol(400)</code></pre>
-<pre><code>## Time difference of 0.179178 secs</code></pre>
+<pre><code>## Time difference of 0.09896493 secs</code></pre>
 </div>
 <p>When I double the dimension of <span class="math inline">\(A\)</span>, the computation time for <span class="math inline">\(A = QR\)</span> gets multiplied by approximately a
 factor of 8</p>
@@ -757,9 +757,14 @@ check(tiger, lion)</code></pre>
 <pre class="r"><code>check(tiger, pencil)</code></pre>
 <pre><code>##           [,1]
 ## [1,] 0.1348347</code></pre>
-<p>————- | ————- lion | 0.5121041 cat | 0.5172962 horse | 0.2876559
+<p>————- | ————-<br />
+lion | 0.5121041<br />
+cat | 0.5172962<br />
+horse | 0.2876559<br />
 octopus | 0.2439948<br />
-snail | 0.2244429 beetle | 0.3287175 pencil | 0.1348347</p>
+snail | 0.2244429<br />
+beetle | 0.3287175<br />
+pencil | 0.1348347</p>
 </div>
 </div>
 
