@@ -221,6 +221,8 @@ ourSol(100)
 # The result of factorization of matrix 100*100 using built in function:
 builtInSol(100)
 ```
+So, the built in solution is faster.
+
 :::
 
 * Now try a $200\times200$ matrix and a $400\times400$ matrix. Use the built-in code. Complete the sentence: "When I double the dimension of $A$, the computation time for $A = QR$ gets multiplied by approximately a factor of 8".  
@@ -234,14 +236,20 @@ builtInSol(200)
 # The result of factorization of matrix 400*400 using built in function
 builtInSol(400)
 ```
-:::
 
 When I double the dimension of $A$, the computation time for $A = QR$ gets multiplied by approximately a factor of 8
+:::
+
+
 
 * An hour is 3600 seconds. Predict how large a matrix you can factor in one hour on your machine. 
 
 ::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
-However, if use build-in function, the matrix will be 7000 * 7000
+\[0.01 = c(100)^{3}\]
+\[cn^{3} =3600\]
+\[n \approx 15326\]
+
+If use build-in function, the matrix will be 15326 * 15326
 :::
 
 
@@ -451,9 +459,9 @@ check(tiger, snail)
 check(tiger, beetle)
 check(tiger, pencil)
 ```
-------------- | -------------   
-lion | 0.5121041  
+------------- | -------------  
 cat | 0.5172962  
+lion | 0.5121041  
 horse | 0.2876559  
 octopus | 0.2439948  
 snail | 0.2244429   

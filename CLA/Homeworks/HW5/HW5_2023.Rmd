@@ -1,0 +1,275 @@
+---
+title: "HW5_S23"
+author: "Shengyuan Wang"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+options(scipen = 1, digits = 16)
+```
+
+
+## Homework 5, due Thursday 2/23 at 5PM 
+Homework guidelines: 
+
+- Turn in this assignment as a PDF on Moodle, please! To create a PDF, I suggest knitting to HTML, then opening the HTML file in a browser and saving to PDF from there. 
+
+- You're invited to collaborate and discuss with each other, and then each person should turn in their own assignment, which should be their own work.  "Discussing" is very different from copying and I trust students to stay on the right side of this line. In general, anything you say out loud to another person is fine, and looking at a screen together (in person or on Zoom) is fine. Sharing files or screenshots is a bad idea. Name the people you work with below (question 0). 
+
+- If you start early, you're giving yourself the chance to ask questions and turn in a polished product. If you start late, you won't be able to get help as easily. 
+
+- The first two questions use a circular Mac logo from the [Communications page](https://www.macalester.edu/communications/tools/logodownload/):
+```{r}
+library(ggplot2)
+library(png)
+my.plot <- function(A){ # you're welcome to use this function! 
+  A[A>1] = 1
+  A[A<0] = 0
+  plot(1:10,1:10,type='p',col='white',asp=1)
+  rasterImage(A,1,1,10,10)
+}
+A <- readPNG("macbadge.png")[,,1]
+A <- rbind(rep(1,1160),A) # add one row of all 1's to make it square
+plot(1:10,1:10,type='p',col='white',asp=1)
+rasterImage(A,1,1,10,10)
+```
+
+### Q0: Names
+Who did you work with on this assignment? You'll get a bonus 5 points if you name someone and they name you. *No scores above 100% are allowed, but these bonus points can repair mistakes on this assignment*.
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+Name: Wenxuan / Carissa
+
+I worked with Wenxuan and Carissa on this assignment.
+
+:::
+
+
+### Q1: Singular values of Mac logo
+Find the svd of the matrix $A$ used to plot the logo above. What is the largest singular value? What is the smallest? Are there any zero or nearly-zero singular values, and if so, how many? What is the dimension of the nullspace of $A$? 
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+```{r}
+out <- svd(A)
+U <- out$u
+sigma <- out$d
+V <- out$v
+```
+```{r}
+max(sigma)
+min(sigma)
+```
+```{r}
+sigma[1150:1160]
+```
+
+> We can find the largest singluar value is 928.2859734141767, the smallest singular value is 9.135720618416392e-14, and there are three nearly-zero singular values with the value of 9.135720618416393e-14.
+And the dimension of the nullspace of A is 3.
+:::
+
+
+### Q2: Legible letters in Mac logo
+Create and then plot some low-rank approximations of the Mac logo matrix $A$. About what rank is required before the words in the logo are easily legible? *This is subjective and you don't have to be exact.* How many numbers must you store in memory to save the required right and left singular vectors? (You don't need to store the singular values). What percentage of the original 1160x1160 storage is this? 
+
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+```{r}
+consider <- function(sigma, x, U, V){
+  r1a <- sigma[1] * U[, 1] %*% t(V[,1])
+  for (i in 2:x) {
+    addi <- sigma[i] * U[, i] %*% t(V[,i])
+    r1a <- r1a + addi
+  }
+  return (r1a)
+}
+```
+
+```{r}
+example1 <- consider(sigma, 20, U, V)
+my.plot(example1)
+```
+
+```{r}
+example1 <- consider(sigma, 50, U, V)
+my.plot(example1)
+```
+```{r}
+example1 <- consider(sigma, 100, U, V)
+my.plot(example1)
+```
+
+> From the low-rank approximation plot above, we can see 50 ranks is required beforethe words in the logo are easily legible. We need 50*1160*2 = 116000 numbers to store in memory to save the required right and left singular vectors. And about 10% of original 1160*1160 storage is this.
+
+:::
+
+
+## Q3 Salvaging a failed Cholesky factorization
+In trying to factorize a symmetric $4\times4$ matrix, I arrived here:
+$$
+A = \begin{pmatrix}
+2&0&0\\
+1&5&0\\
+-1&-1&3\\
+1&4&1
+\end{pmatrix}
+\begin{pmatrix}
+2&1&-1&1\\0&5&-1&4\\0&0&3&1
+\end{pmatrix}
++\begin{pmatrix}
+0&0&0&0\\
+0&0&0&0\\
+0&0&0&0\\
+0&0&0&-4
+\end{pmatrix}
+$$
+That is, I found three columns of $L$, but now the last entry is negative so I can't complete the Cholesky factorization. My goal was to solve $Ax = b$ with $b^T = (22,16,0,3)$. Instead of throwing out the work I've done so far, I think maybe I should try to get a factorization $A = L U$ where $U$ is not $L^T$, then solve two triangular systems. Please take over and help me find $x$! \emph{Give a solution on paper (it's OK to check by machine). Don't use complex numbers. } 
+
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+```{r}
+a1 <- cbind(c(2, 1, -1, 1), c(0, 5, -1, 4), c(0, 0, 3, 1), c(0, 0, 0, 2))
+a2 <- t(a1)
+a2[4, 4] <- -2
+a1
+a2
+a1 %*%a2
+```
+
+A = LU
+\[A=\begin{pmatrix}2&0&0&0\\1&5&0&0\\-1&-1&3&0\\1&4&1&2\end{pmatrix}\begin{pmatrix}2&1&-1&1\\0&5&-1&4\\0&0&3&1\\0&0&0&-2\end{pmatrix}\]
+LUx = b
+\[\begin{pmatrix}2&0&0&0\\1&5&0&0\\-1&-1&3&0\\1&4&1&2\end{pmatrix}\begin{pmatrix}2&1&-1&1\\0&5&-1&4\\0&0&3&1\\0&0&0&-2\end{pmatrix}x = \begin{pmatrix}22\\16\\0\\3\end{pmatrix}\]
+Lv = b
+\[\begin{pmatrix}2&0&0&0\\1&5&0&0\\-1&-1&3&0\\1&4&1&2\end{pmatrix}v = \begin{pmatrix}22\\16\\0\\3\end{pmatrix}\]
+Ux = v
+\[\begin{pmatrix}2&1&-1&1\\0&5&-1&4\\0&0&3&1\\0&0&0&-2\end{pmatrix}x = \begin{pmatrix}11\\1\\4\\-8\end{pmatrix}\]
+x
+\[x = \begin{pmatrix}5\\-3\\0\\4\end{pmatrix}\]
+
+:::
+
+
+
+## Q4 Sorting with permutation matrices
+Suppose we have two vectors with identical entries, but in a different order: 
+```{r}
+v <- c(3.14,2.87,16.55,23.59,62.29,90.0)
+w <- c(62.29,3.14,90.0,23.59,16.55,2.87)
+```
+We might want to find a permutation matrix $P$ such that $Pv=w$.
+One method uses the fact that both vectors are the same if you sort their entries. It relies on this version of the sorting command: 
+```{r}
+jv <- sort(v,index.return=TRUE)$ix
+print(jv)
+print(v[jv])
+```
+So *jv* is a list of integers such that *v[jv]* is the sorted list. 
+Using a permutation matrix, we can do this: 
+```{r}
+Pv <- diag(1,6,6)[jv,]
+print(Pv %*% v) # this permutation sorts v!
+```
+Of course, applying $P_v^T$ would turn the sorted array back into the original $v$. 
+
+To find $P$ so that $Pv = w$, we can set $P = P_w^TP_v$ where $P_v$ sorts $v$ and $P_w$ sorts $w$. Try it and print out $P$ and $Pv - w$ (which should be zero). 
+
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+```{r}
+jv <- sort(v,index.return=TRUE)$ix
+Pv <- diag(1,6,6)[jv,]
+jw <- sort(w, index.return=TRUE)$ix
+Pw <- diag(1,6,6)[jw,]
+P <- t(Pw) %*% Pv
+P
+P%*%v-w
+```
+
+
+
+:::
+
+
+
+
+
+## Q5 Half-precision numbers
+Give strings of 16 zeros and ones to represent the numbers $1/7$ and $-700.5$ in the half-precision system. 
+
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+For $1/7$, it is 0011000010010010.
+
+For $-700.5$, it is 1110000101111001.
+
+:::
+
+
+
+
+
+## Q6 Avoiding overflow
+A common task is to find the hypotenuse of a right triangle, given the lengths of its other sides. Suppose that the two sides are $a=10^{200}$ and $b=1.5\times10^{201}$. The straightforward command "sqrt(a\^2+b\^2)" would return *Inf* because the double precision system overflows at around $10^{300}$. The formula $\sqrt{a^2+b^2} = |a|\sqrt{1+(b/a)^2}$ suggests one way to avoid this problem, but introduces another issue (trouble when $a=0$). 
+Write a function to return $sqrt(a^2+b^2)$ given $a$ and $b$ that avoids overflows and underflows and also divisions by zero. Then test it on the cases given below:
+
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+```{r}
+# note: add {r} on previous line to make this actually run!
+my.hypot <- function(a,b){
+  # your code 
+  if (a == 0) {
+    return (abs(b))
+  }
+  return (abs(a)*sqrt(1+(b/a)**2))
+}
+my.hypot(3, 4) # should be 5
+my.hypot(1e200, 1.5e201) # should not be Inf
+my.hypot(-1e200, -1.5e201) # should not be Inf
+my.hypot(1e-200, 1.5e-201) # should not be 0
+my.hypot(10, 0) # should be 10 
+my.hypot(0,-4)  # should be 4
+```
+
+:::
+
+
+
+
+## Q7 Precision issue
+Let $x = \frac{\pi}{10^4}$. Possibly by using Taylor series, find $y = x-\log(1+x)$ to 16-digit accuracy (show all 16 digits). How many correct digits do you get with the command "y<-x-log(1+x)"?
+
+::: {style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;"}
+
+\[y = x - log(1+x) = x - (x -\frac{x^2}{2}+\frac{x^3}{3}-\frac{x^4}{4}+\frac{x^5}{5}\cdots) = \frac{x^2}{2}-\frac{x^3}{3}+\frac{x^4}{4}-\frac{x^5}{5}\cdots\]
+
+```{r}
+taylor <- function() {
+  res <- 0
+  for (x in 2:20) {
+    res <- res + (((-1)**x) * ((pi/10000)**x)) / x
+  }
+  return (res)
+}
+taylor()
+```
+
+
+```{r}
+x <- pi/10000
+y <- x-log(1+x)
+y
+```
+
+> I got 7 digits correct with the command.
+:::

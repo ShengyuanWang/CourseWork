@@ -11,7 +11,7 @@
 
 <meta name="author" content="Shengyuan Wang" />
 
-<meta name="date" content="2023-02-12" />
+<meta name="date" content="2023-02-16" />
 
 <title>HW4</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">HW4</h1>
 <h4 class="author">Shengyuan Wang</h4>
-<h4 class="date">2023-02-12</h4>
+<h4 class="date">2023-02-16</h4>
 
 </div>
 
@@ -524,14 +524,14 @@ for (j in 1:1000000){
 }
 tend &lt;- Sys.time()
 print(tend - tstart)</code></pre>
-<pre><code>## Time difference of 0.02070403 secs</code></pre>
+<pre><code>## Time difference of 0.01859403 secs</code></pre>
 <p>It is much faster to create a vector and sum the entries, avoiding
 the for-loop! Example:</p>
 <pre class="r"><code>tstart = Sys.time()
 t &lt;- sum(1:1000000)
 tend &lt;- Sys.time()
 print(tend - tstart)</code></pre>
-<pre><code>## Time difference of 0.001732111 secs</code></pre>
+<pre><code>## Time difference of 0.002692938 secs</code></pre>
 <pre class="r"><code>my.QR &lt;- function(A){
   # This is the numerically stable (good) version 
   # Also known as &quot;modified Gram-Schmidt&quot; or &quot;mgs&quot;
@@ -581,10 +581,11 @@ course spreadsheet.</em> Which is faster?</li>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
 <pre class="r"><code># The result of factorization of matrix 100*100 using our function:
 ourSol(100)</code></pre>
-<pre><code>## Time difference of 0.1255929 secs</code></pre>
+<pre><code>## Time difference of 0.1265011 secs</code></pre>
 <pre class="r"><code># The result of factorization of matrix 100*100 using built in function:
 builtInSol(100)</code></pre>
-<pre><code>## Time difference of 0.000800848 secs</code></pre>
+<pre><code>## Time difference of 0.0008370876 secs</code></pre>
+<p>So, the built in solution is faster.</p>
 </div>
 <ul>
 <li>Now try a <span class="math inline">\(200\times200\)</span> matrix
@@ -597,20 +598,21 @@ factor of 8”.</li>
 <pre class="r"><code># -------------------------------------------------------------------------
 # The result of factorization of matrix 200*200 using built in function:
 builtInSol(200)</code></pre>
-<pre><code>## Time difference of 0.01343179 secs</code></pre>
+<pre><code>## Time difference of 0.00621891 secs</code></pre>
 <pre class="r"><code># -------------------------------------------------------------------------
 # The result of factorization of matrix 400*400 using built in function
 builtInSol(400)</code></pre>
-<pre><code>## Time difference of 0.09896493 secs</code></pre>
-</div>
+<pre><code>## Time difference of 0.177671 secs</code></pre>
 <p>When I double the dimension of <span class="math inline">\(A\)</span>, the computation time for <span class="math inline">\(A = QR\)</span> gets multiplied by approximately a
 factor of 8</p>
+</div>
 <ul>
 <li>An hour is 3600 seconds. Predict how large a matrix you can factor
 in one hour on your machine.</li>
 </ul>
 <div style="border-style:solid; border-width:2px; border-color:black; padding:10px; margin:10px;">
-<p>However, if use build-in function, the matrix will be 7000 * 7000</p>
+<p><span class="math display">\[0.01 = c(100)^{3}\]</span> <span class="math display">\[cn^{3} =3600\]</span> <span class="math display">\[n \approx 15326\]</span></p>
+<p>If use build-in function, the matrix will be 15326 * 15326</p>
 </div>
 </div>
 <div id="q5-a-rank-one-matrix-is-not-invertible" class="section level3">
@@ -758,8 +760,8 @@ check(tiger, lion)</code></pre>
 <pre><code>##           [,1]
 ## [1,] 0.1348347</code></pre>
 <p>————- | ————-<br />
-lion | 0.5121041<br />
 cat | 0.5172962<br />
+lion | 0.5121041<br />
 horse | 0.2876559<br />
 octopus | 0.2439948<br />
 snail | 0.2244429<br />

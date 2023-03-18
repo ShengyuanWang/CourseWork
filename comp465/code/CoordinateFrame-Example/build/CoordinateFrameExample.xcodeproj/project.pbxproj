@@ -1,0 +1,754 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		5806DB9FC1D64CE7BA64F117 /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 8507EE39E4B54301825839F5 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				99B0392BDB00992EC012A7DE /* Generate CMakeFiles/ALL_BUILD */,
+			);
+			dependencies = (
+				13DE5E4D91814128AD2F65BB /* PBXTargetDependency */,
+				16965CBAE342403CB5F2B386 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+		8A52BA1D13184677B268F83A /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = DF3ACE3E538A4A12AA455257 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				136420C05FFEA86062DE55DB /* Generate CMakeFiles/ZERO_CHECK */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		164F9AF685E34124B26E5DCC /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/README.md */ = {isa = PBXBuildFile; fileRef = 0182A91082D64B9194B8A68C /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/README.md */; };
+		7A7B52BB48FC4683A09163C6 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/ExampleApp.cpp */ = {isa = PBXBuildFile; fileRef = 0178DECD2793496EB5A0A3FB /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/ExampleApp.cpp */; };
+		86FBD182ACB34F7AA9ECA783 /* /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/CoreFoundation.framework */ = {isa = PBXBuildFile; fileRef = 1DBCD27584644494B9A05D71 /* /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/CoreFoundation.framework */; };
+		8E84601040E04A499DC74553 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/main.cpp */ = {isa = PBXBuildFile; fileRef = 80F30465F5E1488D868E44FD /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/main.cpp */; };
+		C2363226882C4BC79AE9EB91 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 6584414557A743A5B2B74E57 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/CMakeLists.txt */; };
+		DE310C09259B47B5B041B7AF /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/ExampleApp.h */ = {isa = PBXBuildFile; fileRef = E12E937C2F794AB0B789F8E9 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/ExampleApp.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		07B4BD2A28FD4E6781F9329D /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+		2C95133F2F4B4A16A7A795E6 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		6EB2F6EF7D3E4236BB7C180A /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		C4B0D07D017D44319DEFDFE8 /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		1668C28623114AB499567597 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FE77DA66EF14805AA28CEF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3E2F35FCC4C045BEADF504DA;
+			remoteInfo = CoordinateFrameExample;
+		};
+		2987F0B096B84B3AA304E676 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FE77DA66EF14805AA28CEF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A52BA1D13184677B268F83A;
+			remoteInfo = ZERO_CHECK;
+		};
+		E15E5C7B12D14650A33BDF7E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3FE77DA66EF14805AA28CEF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A52BA1D13184677B268F83A;
+			remoteInfo = ZERO_CHECK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0178DECD2793496EB5A0A3FB /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/ExampleApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = ExampleApp.cpp; path = src/ExampleApp.cpp; sourceTree = SOURCE_ROOT; };
+		0182A91082D64B9194B8A68C /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/README.md */ = {isa = PBXFileReference; explicitFileType = sourcecode; fileEncoding = 4; name = README.md; path = README.md; sourceTree = SOURCE_ROOT; };
+		1DBCD27584644494B9A05D71 /* /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/CoreFoundation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/CoreFoundation.framework; sourceTree = "<absolute>"; };
+		36AF28C5E3924DD8BC438E99 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		6584414557A743A5B2B74E57 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		80F30465F5E1488D868E44FD /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
+		E12E937C2F794AB0B789F8E9 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/ExampleApp.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ExampleApp.h; path = src/ExampleApp.h; sourceTree = SOURCE_ROOT; };
+		EAF861DC20CF4B4098CDD9A9 /* CoordinateFrameExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = CoordinateFrameExample; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		60F3AB3CE80A47489CA4670C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		57EB67756CFE4DD082DE55A0 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				0178DECD2793496EB5A0A3FB /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/ExampleApp.cpp */,
+				80F30465F5E1488D868E44FD /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/main.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		5D9013834DE74C32A39C0B77 /* CoordinateFrameExample */ = {
+			isa = PBXGroup;
+			children = (
+				57EB67756CFE4DD082DE55A0 /* Source Files */,
+				D2D88F6378A0492E89950E2E /* Header Files */,
+				6584414557A743A5B2B74E57 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/CMakeLists.txt */,
+				0182A91082D64B9194B8A68C /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/README.md */,
+			);
+			name = CoordinateFrameExample;
+			sourceTree = "<group>";
+		};
+		608FF0733FB64B088989A8AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DBCD27584644494B9A05D71 /* /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A6ECB3031B944BC282011151 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		B94FE50515864C5D8E238D38 = {
+			isa = PBXGroup;
+			children = (
+				5D9013834DE74C32A39C0B77 /* CoordinateFrameExample */,
+				FA96C0FCDC9348F0A54004BE /* ALL_BUILD */,
+				F78D69FA79C34C5D8ABF665F /* Products */,
+				608FF0733FB64B088989A8AE /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D2D88F6378A0492E89950E2E /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				E12E937C2F794AB0B789F8E9 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/ExampleApp.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		F78D69FA79C34C5D8ABF665F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EAF861DC20CF4B4098CDD9A9 /* CoordinateFrameExample */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA96C0FCDC9348F0A54004BE /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				A6ECB3031B944BC282011151 /* CMake Rules */,
+				36AF28C5E3924DD8BC438E99 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3E2F35FCC4C045BEADF504DA /* CoordinateFrameExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB2BCCF765F24DC4B3252874 /* Build configuration list for PBXNativeTarget "CoordinateFrameExample" */;
+			buildPhases = (
+				9116A5EC5A324E2BA37264E4 /* Sources */,
+				60F3AB3CE80A47489CA4670C /* Frameworks */,
+				D83ED864570C914B40430E51 /* CMake PostBuild Rules */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				78F8EE849EC84F15A0397912 /* PBXTargetDependency */,
+			);
+			name = CoordinateFrameExample;
+			productName = CoordinateFrameExample;
+			productReference = EAF861DC20CF4B4098CDD9A9 /* CoordinateFrameExample */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3FE77DA66EF14805AA28CEF9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1250;
+			};
+			buildConfigurationList = E33953F3F68C4041AD2B7FF0 /* Build configuration list for PBXProject "CoordinateFrameExample" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				2C95133F2F4B4A16A7A795E6 /* Debug */,
+				07B4BD2A28FD4E6781F9329D /* Release */,
+				C4B0D07D017D44319DEFDFE8 /* MinSizeRel */,
+				6EB2F6EF7D3E4236BB7C180A /* RelWithDebInfo */,
+			);
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = B94FE50515864C5D8E238D38;
+			projectDirPath = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example";
+			projectRoot = "";
+			targets = (
+				5806DB9FC1D64CE7BA64F117 /* ALL_BUILD */,
+				3E2F35FCC4C045BEADF504DA /* CoordinateFrameExample */,
+				8A52BA1D13184677B268F83A /* ZERO_CHECK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		136420C05FFEA86062DE55DB /* Generate CMakeFiles/ZERO_CHECK */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate CMakeFiles/ZERO_CHECK";
+			outputPaths = (
+"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/CMakeFiles/ZERO_CHECK"			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  make -f /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/CMakeScripts/ReRunCMake.make
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  make -f /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/CMakeScripts/ReRunCMake.make
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  make -f /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/CMakeScripts/ReRunCMake.make
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  make -f /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/CMakeScripts/ReRunCMake.make
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+		3C0110FC8322DE7E50886E21 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		99B0392BDB00992EC012A7DE /* Generate CMakeFiles/ALL_BUILD */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate CMakeFiles/ALL_BUILD";
+			outputPaths = (
+"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/CMakeFiles/ALL_BUILD"			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  echo Build\\ all\\ projects
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  echo Build\\ all\\ projects
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  echo Build\\ all\\ projects
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  echo Build\\ all\\ projects
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+		9B50530E35CC49C82C2FACCF = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		D83ED864570C914B40430E51 /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e
+if test \"$CONFIGURATION\" = \"Debug\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  /Applications/CMake.app/Contents/bin/cmake -E copy_directory /Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/resources /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/Debug/
+fi
+if test \"$CONFIGURATION\" = \"Release\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  /Applications/CMake.app/Contents/bin/cmake -E copy_directory /Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/resources /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/Release/
+fi
+if test \"$CONFIGURATION\" = \"MinSizeRel\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  /Applications/CMake.app/Contents/bin/cmake -E copy_directory /Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/resources /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/MinSizeRel/
+fi
+if test \"$CONFIGURATION\" = \"RelWithDebInfo\"; then :
+  cd /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build
+  /Applications/CMake.app/Contents/bin/cmake -E copy_directory /Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/resources /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/RelWithDebInfo/
+fi
+";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9116A5EC5A324E2BA37264E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A7B52BB48FC4683A09163C6 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/ExampleApp.cpp */,
+				8E84601040E04A499DC74553 /* /Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/src/main.cpp */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		13DE5E4D91814128AD2F65BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8A52BA1D13184677B268F83A /* ZERO_CHECK */;
+			targetProxy = 2987F0B096B84B3AA304E676 /* PBXContainerItemProxy */;
+		};
+		16965CBAE342403CB5F2B386 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3E2F35FCC4C045BEADF504DA /* CoordinateFrameExample */;
+			targetProxy = 1668C28623114AB499567597 /* PBXContainerItemProxy */;
+		};
+		78F8EE849EC84F15A0397912 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8A52BA1D13184677B268F83A /* ZERO_CHECK */;
+			targetProxy = E15E5C7B12D14650A33BDF7E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0EBB1C2FD6474E8091B20194 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		14A57AE5D79D43D78143872E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/Release";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",USE_OPENGL,GL_SILENCE_DEPRECATION,USE_Assimp,USE_SOIL,"$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=gnu++11' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names",/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libBasicGraphics.a,"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/minvr/build/install/lib/MinVR-2.0/libMinVRd.a",/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,"-Xlinker -framework -Xlinker CoreFoundation",/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libassimpd.a,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libzlibstaticd.a,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libSOIL.a,"-Xlinker -framework -Xlinker CoreFoundation","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = CoordinateFrameExample;
+				SECTORDER_FLAGS = "";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks,"$(inherited)");
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/SOIL,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/BasicGraphics,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/BasicGraphics/glm,"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/minvr/build/install/include/MinVR-2.0","$(inherited)");
+				TARGET_TEMP_DIR = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/build/CoordinateFrameExample.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		2137F0C903B44871A36FD2B0 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/MinSizeRel";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",USE_OPENGL,GL_SILENCE_DEPRECATION,USE_Assimp,USE_SOIL,"$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG '-std=gnu++11' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names",/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libBasicGraphics.a,"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/minvr/build/install/lib/MinVR-2.0/libMinVRd.a",/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,"-Xlinker -framework -Xlinker CoreFoundation",/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libassimpd.a,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libzlibstaticd.a,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libSOIL.a,"-Xlinker -framework -Xlinker CoreFoundation","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = CoordinateFrameExample;
+				SECTORDER_FLAGS = "";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks,"$(inherited)");
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/SOIL,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/BasicGraphics,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/BasicGraphics/glm,"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/minvr/build/install/include/MinVR-2.0","$(inherited)");
+				TARGET_TEMP_DIR = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/build/CoordinateFrameExample.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		358B6433F9D04A968D87C931 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		406ED3A352514D72AC8A4986 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/build";
+			};
+			name = MinSizeRel;
+		};
+		53B04C86C9E94A28BBC40C70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/build";
+			};
+			name = Release;
+		};
+		5E44844909AE4CC0918DE586 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/Debug";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",USE_OPENGL,GL_SILENCE_DEPRECATION,USE_Assimp,USE_SOIL,"$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CPLUSPLUSFLAGS = "   '-std=gnu++11' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names",/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libBasicGraphics.a,"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/minvr/build/install/lib/MinVR-2.0/libMinVRd.a",/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,"-Xlinker -framework -Xlinker CoreFoundation",/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libassimpd.a,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libzlibstaticd.a,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libSOIL.a,"-Xlinker -framework -Xlinker CoreFoundation","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = CoordinateFrameExample;
+				SECTORDER_FLAGS = "";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks,"$(inherited)");
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/SOIL,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/BasicGraphics,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/BasicGraphics/glm,"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/minvr/build/install/include/MinVR-2.0","$(inherited)");
+				TARGET_TEMP_DIR = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/build/CoordinateFrameExample.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		735D1C3EFB6C494A8DBBA295 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		885DC9B8062A4AE5AE9D7FE9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		8DBA95CCD38A420AAFD79625 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk;
+				SYMROOT = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/build";
+			};
+			name = Debug;
+		};
+		A392650450444A45874F4DA3 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		C09C2B7EE51C44B5857CD6DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Debug;
+		};
+		CEEFE2BF80964B3D9673C2B4 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYMROOT = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/build";
+			};
+			name = RelWithDebInfo;
+		};
+		E0700AE8F98B48EF8308DF1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = Release;
+		};
+		F445A985B96D454C84D112D4 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'","$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = ("","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		F9365D1B70B941F5992A4B5A /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/RelWithDebInfo";
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",USE_OPENGL,GL_SILENCE_DEPRECATION,USE_Assimp,USE_SOIL,"$(inherited)");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG '-std=gnu++11' ";
+				OTHER_LDFLAGS = (" -Wl,-search_paths_first -Wl,-headerpad_max_install_names",/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libBasicGraphics.a,"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/minvr/build/install/lib/MinVR-2.0/libMinVRd.a",/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,"-Xlinker -framework -Xlinker CoreFoundation",/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks/OpenGL.framework/OpenGL.tbd,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libassimpd.a,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libzlibstaticd.a,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/lib/libSOIL.a,"-Xlinker -framework -Xlinker CoreFoundation","$(inherited)");
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = CoordinateFrameExample;
+				SECTORDER_FLAGS = "";
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = (/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/Library/Frameworks,"$(inherited)");
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/SOIL,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/BasicGraphics,/Users/shengyuanwang/Desktop/CourseWork/comp465/code/basicgraphics/build/install/include/BasicGraphics/glm,"/Users/shengyuanwang/Desktop/CourseWork/comp465/code/minvr/build/install/include/MinVR-2.0","$(inherited)");
+				TARGET_TEMP_DIR = "/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/build/CoordinateFrameExample.build/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				WARNING_CFLAGS = ("$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8507EE39E4B54301825839F5 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C09C2B7EE51C44B5857CD6DD /* Debug */,
+				E0700AE8F98B48EF8308DF1C /* Release */,
+				F445A985B96D454C84D112D4 /* MinSizeRel */,
+				A392650450444A45874F4DA3 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CB2BCCF765F24DC4B3252874 /* Build configuration list for PBXNativeTarget "CoordinateFrameExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E44844909AE4CC0918DE586 /* Debug */,
+				14A57AE5D79D43D78143872E /* Release */,
+				2137F0C903B44871A36FD2B0 /* MinSizeRel */,
+				F9365D1B70B941F5992A4B5A /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DF3ACE3E538A4A12AA455257 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				358B6433F9D04A968D87C931 /* Debug */,
+				885DC9B8062A4AE5AE9D7FE9 /* Release */,
+				735D1C3EFB6C494A8DBBA295 /* MinSizeRel */,
+				0EBB1C2FD6474E8091B20194 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E33953F3F68C4041AD2B7FF0 /* Build configuration list for PBXProject "CoordinateFrameExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DBA95CCD38A420AAFD79625 /* Debug */,
+				53B04C86C9E94A28BBC40C70 /* Release */,
+				406ED3A352514D72AC8A4986 /* MinSizeRel */,
+				CEEFE2BF80964B3D9673C2B4 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3FE77DA66EF14805AA28CEF9 /* Project object */;
+}

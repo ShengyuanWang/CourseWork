@@ -1,0 +1,3 @@
+/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/CMakeFiles/CoordinateFrameExample.dir
+/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/CMakeFiles/ALL_BUILD.dir
+/Users/shengyuanwang/Desktop/CourseWork/comp465/code/CoordinateFrame-Example/build/CMakeFiles/ZERO_CHECK.dir

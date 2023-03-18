@@ -1,0 +1,99 @@
+---
+title: "HW6 on cereals"
+author: "Shengyuan Wang"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Collaboration
+
+Wenxuan, Carrisa
+
+### SVD and breakfast cereals
+
+The SVD can be used to take a two-dimensional or three-dimensional snapshot of high-dimensional data, so that dimensionally-challenged human beings can see it. In this assignment, you will use the top two singular values to project some data down to 2-dimensional space where you can interpret it.
+
+Here is a data set on cereals:
+
+```{r}
+cereal = read.csv("cereal.csv")
+A =  as.matrix(cereal[,4:16])
+Names = as.matrix(cereal[,1])
+```
+
+The matrix $A$ has nutritional information (in 13 categories) about 77 breakfast cereals (one per row of $A$).  The names of the cereals are stored as the vector "Names".  This dataset is from Kaggle.  
+
+The columns are measured in differing units, so we'll do some preprocessing before we take the SVD. 
+
+## Q1 Preprocessing and SVD
+Within each column of $A$, subtract off the mean. Then, within each column of $A$, divide by the square root of the variance, like "c <- c / sqrt(var(c))" if c were a column of $A$. Plot the singular values of the modified matrix $A$. Comment on the plot. 
+
+```{r}
+# Subtract off the mean for each column of A
+A_centered <- apply(A, 2, function(x) x - mean(x))
+
+# Divide by the square root of the variance for each column of A
+A_scaled <- apply(A_centered, 2, function(x) x / sqrt(var(x)))
+```
+
+```{r}
+# Compute the singular value decomposition of A_scaled
+svd_A <- svd(A_scaled)
+
+# Plot the singular values
+plot(svd_A$d, type = "b", xlab = "Index", ylab = "Singular Value")
+```
+
+> The resulting plot shows the singluar values of the modified matrix A_scaled. The x-axis represents the index of each singular value, while the y-axis represents the value of the singular value. The singular values represent the importance of each singular vector in describing the matrix A. A larger singular value indicvates that the corresponding singular vector has a greater impact on the matrix A. From the plot, we can see the singular values drops off rapidly after the index of 2. So here, this provide the insights that the first two singular values has more importance in describing the matrix A.
+
+
+
+
+
+
+## Q2 2D plot for high-dimensional cereal vectors
+Use the vectors $x = U_1$ and $y = U_2$ from the SVD as the $x$ and $y$ coordinates of points in the plane. Plot these points. Label the $i^{th}$ point with the $i^{th}$ brand of cereal. To do this, you can use the following command after your plotting command:
+```
+text(x,y,Names,cex=0.3) # the cex= makes the text smaller
+```
+```{r}
+# Extract the first two left singular vectors
+U_1 <- svd_A$u[,1]
+U_2 <- svd_A$u[,2]
+```
+```{r}
+# Plot the points using the first two left singular vectors as coordinates
+plot(U_1, U_2, xlab = "U_1", ylab = "U_2")
+
+# Label each point with the name of the corresponding cereal
+text(U_1, U_2, Names, cex = 0.3)
+
+
+
+
+```
+
+## Q3 Outliers
+Do any of the cereals look like outliers to you? 
+
+> From the plot, we can see "Bran with Extra Fiber", "100% Bran", and "All-Bran" looks like outliers for me.
+
+
+## Q4 Similar names
+The two cereals "All-Bran" and "100% Bran" have very similar names. Do they appear close together on the plot? 
+
+> Yes, it shows that they appear close together on the plot.
+
+## Q5 Gift for friend
+Suppose that I have never eaten any of these cereals but I have a friend who really likes "Great Grains Pecan." I want to bring some to them as a surprise gift. Unfortunately, the store has run out of this cereal and I have to choose something similar instead. As a second choice, which cereal might make a good gift for my friend? 
+
+> From the plot, we can find that the nearest point around "Great Grains Pecan" will be "Raisin not Bran". So, I will bring this one as the second choice to make a good gift for my friends.
+
+
+## Q6 Interpreting $U_1$
+Which cereals have the most extreme positions in the $U_1$-direction? If you look at those rows in the original matrix, do you notice anything special about their values? Can you find an interpretation of the right/left direction in your plot? 
+
+> "Bran with Extra Fiber" have the most extreme position in the $U_1$-direction. Item in right directions contains less fiber, while items in left directions contains more fiber.
