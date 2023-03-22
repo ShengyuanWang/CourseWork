@@ -1,0 +1,319 @@
+---
+title: "HW5_S23"
+author: "Shengyuan Wang"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+options(scipen = 1, digits = 16)
+```
+
+
+## Homework 7, due Tuesday 3/28 at 5PM 
+Homework guidelines: 
+
+- Turn in this assignment as a PDF on Moodle, please! To create a PDF, I suggest knitting to HTML, then opening the HTML file in a browser and saving to PDF from there. 
+
+- You're invited to collaborate and discuss with each other, and then each person should turn in their own assignment, which should be their own work.  "Discussing" is very different from copying and I trust students to stay on the right side of this line. In general, anything you say out loud to another person is fine, and looking at a screen together (in person or on Zoom) is fine. Sharing files or screenshots is a bad idea. Name the people you work with below (question 0). 
+
+- If you start early, you're giving yourself the chance to ask questions and turn in a polished product. If you start late, you won't be able to get help as easily. 
+
+### Q0: Names
+Who did you work with on this assignment? You'll get a bonus 5 points if you name someone and they name you. *No scores above 100% are allowed, but these bonus points can repair mistakes on this assignment*.
+
+### Q1 Gauss quadrature
+For numerical integration, we approximate an integral like $\int_{-1}^1 f(x)\,dx$ by a sum like $\sum_{j=1}^n f(x_j) w_j$. The numbers $w_j$ are called *weights* and the measurement locations $x_j$ are called *nodes.* If we let $n=4$, $\vec x = (-0.5,0,0.5,1.0)$, and $\vec w = (0.5,0.5,0.5,0.5)$, then we are doing the right-hand rule with four subintervals. 
+
+The idea of "Gauss-Legendre integration" is to choose the $x$ and $w$ values carefully so that we get the answer exactly right if the function $f(x)$ is any polynomial of degree less than $2n$. That is, if $n=4$ we would want to choose the eight numbers $x_1$, $x_2$, $x_3$, $x_4$, $w_1$, $w_2$, $w_3$, $w_4$ so that the eight equations 
+$$\begin{align}
+\int_{-1}^1 x^0\,dx &= w_1x_1^0 + w_2x_2^0 + w_3x_3^0 + w_4x_4^0\\
+\int_{-1}^1 x^1\,dx &= w_1x_1^1 + w_2x_2^1 + w_3x_3^1 + w_4x_4^1\\
+\int_{-1}^1 x^2\,dx &= w_1x_1^2 + w_2x_2^2 + w_3x_3^2 + w_4x_4^2\\
+\int_{-1}^1 x^3\,dx &= w_1x_1^3 + w_2x_2^3 + w_3x_3^3 + w_4x_4^3\\
+\int_{-1}^1 x^4\,dx &= w_1x_1^4 + w_2x_2^4 + w_3x_3^4 + w_4x_4^4\\
+\int_{-1}^1 x^5\,dx &= w_1x_1^5 + w_2x_2^5 + w_3x_3^5 + w_4x_4^5\\
+\int_{-1}^1 x^6\,dx &= w_1x_1^6 + w_2x_2^6 + w_3x_3^6 + w_4x_4^6\\
+\int_{-1}^1 x^7\,dx &= w_1x_1^7 + w_2x_2^7 + w_3x_3^7 + w_4x_4^7
+\end{align}
+$$
+all hold. It is not obvious how to choose the nodes and weights so that these equations all work out. Here we'll solve this nonlinear system with Newton's method! I've divided the work into several parts:
+
+- The integral $\int_{-1}^1 e^x\,dx$ has the exact answer 2.350402387287603. What do you get with the right-hand rule and four subintervals? 
+
+```{r}
+exp(-0.5)/2 + exp(0)/2 + exp(0.5)/2 + exp(1)/2
+```
+
+With the right-hand rule, RHR, we can write the integral into the form 
+\[\sum_{j=1}^4 f(x_j) w_j = \frac{e^{-0.5}}{2} + \frac{e^{0}}{2} + \frac{e^{0.5}}{2} + \frac{e^{1}}{2} = 2.986766879435903\] 
+
+
+
+- What should $\vec x$ and $\vec w$ be if you want the left-hand rule with five subintervals? 
+
+$\vec x$ will be $(-1.0, -0.6, -0.2, 0.2, 0.6)$ and $\vec w$ will be $(0.4, 0.4, 0.4, 0.4, 0.4)$.
+
+- Evaluate all of the integrals in the eight equations above.
+
+$$\begin{align}
+\int_{-1}^1 x^0\,dx &= x |^{1}_{-1} = 2\\
+\int_{-1}^1 x^1\,dx &= \frac{x^2}{2} |^{1}_{-1} = 0\\
+\int_{-1}^1 x^2\,dx &= \frac{x^3}{3} |^{1}_{-1} = \frac{2}{3}\\
+\int_{-1}^1 x^3\,dx &= \frac{x^4}{4} |^{1}_{-1} = 0\\
+\int_{-1}^1 x^4\,dx &= \frac{x^5}{5} |^{1}_{-1} = \frac{2}{5}\\
+\int_{-1}^1 x^5\,dx &= \frac{x^6}{6} |^{1}_{-1} = 0\\
+\int_{-1}^1 x^6\,dx &= \frac{x^7}{7} |^{1}_{-1} = \frac{2}{7}\\
+\int_{-1}^1 x^7\,dx &= \frac{x^8}{8} |^{1}_{-1} = 0
+\end{align}
+$$
+
+
+- Solve the eight nonlinear equations for the eight unknowns using Newton's method! To do this, combine the eight unknowns into one large vector $\vec z =$ ($x_1$, $x_2$, $x_3$, $x_4$, $w_1$, $w_2$, $w_3$, $w_4$). Then subtract the integrals from both sides in the equations to get a system like $\vec F(\vec z) = \vec 0$. Find the Jacobian $JF$. Then iterate from the initial guess $z = (0.5,0.5,0,5,0,5,-0.75,-0.25,0.25,0.75)$.
+
+
+```{r}
+my.demo <- function(w1, w2, w3, w4, x1, x2, x3, x4, a) {
+  return (w1*(x1^a)+w2*(x2^a)+w3*(x3^a)+w4*(x4^a))
+}
+
+my.demoJ <- function(w1, w2, w3, w4, x1, x2, x3, x4, a) {
+  dw1 <- x1^a
+  dw2 <- x2^a
+  dw3 <- x3^a
+  dw4 <- x4^a
+  dx1 <- a*w1*(x1^(a-1))
+  dx2 <- a*w2*(x2^(a-1))
+  dx3 <- a*w3*(x3^(a-1))
+  dx4 <- a*w4*(x4^(a-1))
+  return (c(dw1, dw2, dw3, dw4, dx1, dx2, dx3, dx4))
+}
+
+my.F <- function(w1, w2, w3, w4, x1, x2, x3, x4){
+  f1 <- my.demo(w1, w2, w3, w4, x1, x2, x3, x4, 0) - 2
+  f2 <- my.demo(w1, w2, w3, w4, x1, x2, x3, x4, 1)
+  f3 <- my.demo(w1, w2, w3, w4, x1, x2, x3, x4, 2) - (2/3)
+  f4 <- my.demo(w1, w2, w3, w4, x1, x2, x3, x4, 3) 
+  f5 <- my.demo(w1, w2, w3, w4, x1, x2, x3, x4, 4) - (2/5)
+  f6 <- my.demo(w1, w2, w3, w4, x1, x2, x3, x4, 5) 
+  f7 <- my.demo(w1, w2, w3, w4, x1, x2, x3, x4, 6) - (2/7)
+  f8 <- my.demo(w1, w2, w3, w4, x1, x2, x3, x4, 7) 
+  return (c(f1, f2, f3, f4, f5, f6, f7, f8))
+}
+
+my.J <- function(w1, w2, w3, w4, x1, x2, x3, x4) {
+  f1_ <- my.demoJ(w1, w2, w3, w4, x1, x2, x3, x4, 0)
+  f2_ <- my.demoJ(w1, w2, w3, w4, x1, x2, x3, x4, 1)
+  f3_ <- my.demoJ(w1, w2, w3, w4, x1, x2, x3, x4, 2)
+  f4_ <- my.demoJ(w1, w2, w3, w4, x1, x2, x3, x4, 3)
+  f5_ <- my.demoJ(w1, w2, w3, w4, x1, x2, x3, x4, 4)
+  f6_ <- my.demoJ(w1, w2, w3, w4, x1, x2, x3, x4, 5)
+  f7_ <- my.demoJ(w1, w2, w3, w4, x1, x2, x3, x4, 6)
+  f8_ <- my.demoJ(w1, w2, w3, w4, x1, x2, x3, x4, 7)
+  return (rbind(f1_, f2_, f3_, f4_, f5_, f6_, f7_, f8_))
+}
+```
+
+
+
+
+
+```{r}
+options(digits=16)
+v <- c( 0.5, 0.5, 0.5, 0.5, -0.75, -0.25, 0.25, 0.75)
+```
+
+```{r}
+for (j in 1:20) {
+  print(v)
+  w1 <- v[1]
+  w2 <- v[2]
+  w3 <- v[3]
+  w4 <- v[4]
+  x1 <- v[5]
+  x2 <- v[6]
+  x3 <- v[7]
+  x4 <- v[8]
+  dv <- qr.solve(my.J(w1, w2, w3, w4, x1, x2, x3, x4), -my.F(w1, w2, w3, w4, x1, x2, x3, x4), tol=1e-15)
+  v <- v + dv
+}
+
+```
+
+
+You can check your answer by comparing to this: 
+```{r}
+v
+statmod::gauss.quad(4) 
+```
+As we can see, our $v$ converges and works by comparing to $guass.quad(x)$.
+
+- Once your iteration converges, get $w$ and $x$ (the first four and last four entries in $z$) and then compute ``` sum(w*exp(x)) ``` to find the four-point Gauss-Legendre approximation of $\int_{-1}^1 e^x\,dx$. How many correct digits do you get? (This is with just four function evaluations!) 
+
+```{r}
+exp(v[5])*v[1] + exp(v[6])*v[2] + exp(v[7])*v[3] + exp(v[8])*v[4]
+```
+We get seven correct digits with just four function evaluations.
+
+
+### Q2 A trigonometric version of the second barycentric formula
+To interpolate a periodic function with given function values on an evenly spaced grid, we can use a version of the second barycentric formula built from trigonometric functions instead of polynomials. Suppose that the function's graph  passes through the $n$ points $(t_k,y_k)_{k=0}^{n-1}$ where $t_k = 2k\pi / n$.
+Then, if $n$ is odd we use the formula:
+$$
+f(t) = \frac{\displaystyle \sum_{k=0}^{n-1} \frac{(-1)^k y_k}{\sin((t-t_k)/2)} }{\displaystyle \sum_{k=0}^{n-1} \frac{(-1)^k }{\sin((t-t_k)/2)} }
+$$
+(if $n$ is even then we replace the sines with tangents). 
+Use this formula to plot a periodic interpolant of the seventeen points: 
+```{r}
+t <- (0:16)*2*pi/17
+y <- c(0.2,0.2,0.2,0.8,0.8,0.2,0.2,0.8,0.2,0.8,0.8,1.4,0.2,0.8,0.8,0.8,0.7)
+
+# Interpolate using odd n
+
+X <- seq(0, 2*pi, length = 1000)
+num <- 0 * X
+den <- 0 * X
+for (k in 1:17) {
+  num <- num + ((-1)^(k-1) * y[k] / sin((X - t[k])/2))
+  den <- den + ((-1)^(k-1) / sin((X - t[k])/2))
+}
+
+Y <- num/den
+# Plot
+plot(X, Y, type='l', xlab = 't', ylab = 'y')
+points(t, y)
+
+```
+
+
+### Q3 Vandermonde-based interpolation is bad
+Your friend is trying to connect 51 points with a degree 50 polynomial. The points lie on a straight line $y=x$, so the polynomial should simply follow that line, right? They used the Vandermonde method and wrote this code: 
+```{r}
+n <- 50
+x <- seq(-0.99,0.99,length=(n+1)) 
+y <- x # the correct answer is a straight line, y=x
+A <- outer(x,0:n,'^')
+qrt <- qr(A)
+Q <- qr.Q(qrt)
+R <- qrt$qr
+R[lower.tri(R)]<-0
+p <- backsolve(R,t(Q) %*% y)
+x.f <- seq(-1,1,length=1000)
+y.f <- 0*x.f
+for (j in 0:n){
+  y.f <- y.f + p[j+1]*x.f^j 
+}
+plot(x.f,y.f,type='l',ylim = c(-2,2))
+points(x,y)
+```
+
+
+
+They are extremely confused about why their method is failing. 
+
+- Gently explain to them that they are using a bad method to achieve a questionable goal. You should write some sentences. You should also write some code to show them a problem with the matrix $A$ that they created. 
+
+
+In fact, the matrix A created is nearly singular, meaning that small errors in the input data will lead to large errors in the computed solution. From the condition number above, we see that the problem is highly ill-conditioned.
+
+
+I create another input data by adding random noise to the y values, we cansee a highly oscillatory curve that bears little resemblance to the line y=x. Therefore, it is not surprising that their method is failing to produce a reasonable result. 
+
+```{r}
+library(pracma)
+cond(A)
+```
+
+```{r}
+set.seed(123)
+y.noisy <- y + rnorm(length(y), sd=0.1)
+qrt <- qr(A)
+Q <- qr.Q(qrt)
+R <- qrt$qr
+R[lower.tri(R)]<-0
+p <- backsolve(R,t(Q) %*% y.noisy)
+y.f <- 0*x.f
+for (j in 0:n){
+  y.f <- y.f + p[j+1]*x.f^j 
+}
+plot(x.f,y.f,type='l',ylim = c(-2,2))
+points(x,y.noisy)
+
+```
+
+
+- A better way to connect evenly spaced points is to use the second barycentric formula with rational (not polynomial) interpolation! Write some code to calculate  
+$$ f(x) = \frac{\sum_{j=0}^n\frac{w_jy_j}{x-x_j}}{\sum_{j=0}^n\frac{w_j}{x-x_j}}$$ 
+where the numbers $w_j$ are defined by $w_0 = 0.5$, $w_1 = -1$, $w_2=1$, $w_3 = -1$, $\cdots$, $w_{49} = -1$, $w_{50} = 0.5$.  
+Use this to create a better graph. 
+
+```{r}
+n <- 50
+x <- seq(-0.99,0.99,length=(n+1)) 
+y <- x # the correct answer is a straight line, y=x
+w <- c(0.5, -1, 1, rep(-1, 48), 0.5)
+t = seq(1, 51, length=1000)
+
+num <- 0 * t
+den <- 0 * t
+for (j in 1:51) {
+  num <- num + ((w[j]*x[j])/(t-j))
+  den <- den + (w[j]/(t-j))
+}
+
+X <- num/den
+
+num <- 0 * t
+den <- 0 * t
+for (j in 1:51) {
+  num <- num + ((w[j]*y[j])/(t-j))
+  den <- den + (w[j]/(t-j))
+}
+
+Y <- num/den
+# Plot
+plot(X, Y, type='l', ylim = c(-2,2), xlim = c(-1, 1) )
+points(x, y)
+
+```
+
+
+### Q4 Polynomial bases
+Make an illustration showing the two functions $x^{14}$ and $x^{16}$ on the interval $[-1,1]$.  Then make another illustration showing $T_{14}(x)$ and $T_{16}(x)$ on $[-1,1]$. Comment on the differences between the figures and explain why this is important in applications. 
+
+
+```{r}
+library(polynom)
+library(pracma)
+
+# Define the two functions
+f1 <- function(x) x^14
+f2 <- function(x) x^16
+
+# Define the interval
+x <- seq(-1, 1, by = 0.01)
+
+# Plot the two functions
+plot(x, f1(x), type = "l", col = "blue", lwd = 2, xlab = "x", ylab = "y", 
+     main = "x^14 vs. x^16", ylim = c(-1.5, 1.5))
+lines(x, f2(x), col = "red", lwd = 2)
+
+# Plot the Chebyshev polynomials
+
+plot(x, cos(14*acos(x)), type = "l", col = "blue", lwd = 2, xlab = "x", ylab = "y", 
+     main = "T14(x) vs. T16(x)", ylim = c(-1.5, 1.5))
+lines(x, cos(16*acos(x)), col = "red", lwd = 2)
+
+
+```
+
+
+The first plot shows the two functions $x^{14}$ and $x^{16}$ on the interval $[-1,1]$, while the second plot shows the Chebyshev polynomials $T_{14}(x)$ and $T_{16}(x)$ on the same interval.
+
+The main difference between the two sets of functions is that the Chebyshev polynomials oscillate between -1 and 1, while $x^{14}$ and $x^{16}$ do not. This is because the Chebyshev polynomials are specifically designed to have this property, which is important in applications that involve approximating functions using polynomial interpolation or regression.
+
+The reason for this is that the oscillatory behavior of the Chebyshev polynomials helps to minimize the error between the approximation and the actual function being approximated, particularly near the endpoints of the interval.
+
+
