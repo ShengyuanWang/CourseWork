@@ -24,7 +24,7 @@ Homework guidelines:
 ### Q0: Names
 Who did you work with on this assignment? You'll get a bonus 5 points if you name someone and they name you. *No scores above 100% are allowed, but these bonus points can repair mistakes on this assignment*.
 
-Wenxuan Zhu
+Wenxuan, Carissa
 
 ### Q1 Gauss quadrature
 For numerical integration, we approximate an integral like $\int_{-1}^1 f(x)\,dx$ by a sum like $\sum_{j=1}^n f(x_j) w_j$. The numbers $w_j$ are called *weights* and the measurement locations $x_j$ are called *nodes.* If we let $n=4$, $\vec x = (-0.5,0,0.5,1.0)$, and $\vec w = (0.5,0.5,0.5,0.5)$, then we are doing the right-hand rule with four subintervals. 

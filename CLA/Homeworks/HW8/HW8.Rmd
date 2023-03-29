@@ -1,0 +1,359 @@
+---
+title: "HW8"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+On this assignment, **you can skip any one problem.** If you turn in all of them, we'll drop the worst one. 
+
+Here is a code block that creates several functions: 
+
+- my.2BC(y,X): if $\vec y$ contains the values of a degree $n$ polynomial $p(x)$ evaluated on a Chebyshev grid with $n+1$ points, this function returns $p(X)$, the function values at some other points $X$. Typically we want all entries in $X$ to be within the interval $[-1,1]$.  
+- my.dct(y) is the discrete cosine transform, returning the Chebyshev coefficients of the degree $n$ polynomial whose values on an $n+1$-point Chebyshev grid are the entries of $\vec y$.
+- my.idct(c) produces $y_j=p(x_j)$ for $x_j = \cos(j\pi / n)$, where $p(x) = \sum_{j=0}^nc_jT_j(x)$. The input $\vec c$ and output $\vec y$ both have $n+1$ entries. 
+- my.cheb.diff computes the Chebyshev coefficients of $p'$, given the Chebyshev coefficents of $p$. Note that the returned vector will have one fewer entry than the input vector.  
+- my.roots accepts the Chebyshev coefficients of a polynomial and returns the real roots of that polynomial (it creates the colleague matrix and finds the eigenvalues).  
+
+```{r} 
+# 2nd Barycentric Interpolation Formula on Chebyshev Grid
+my.2BC <- function(y,X) {
+  # y is data on a Chebyshev grid. 
+  # X is evaluation point.  
+  # return interpolating polynomial value at X. 
+  
+  # If X is a vector, do a (slow) loop:
+  if (length(X) > 1){
+    Y.out <- 0*X
+    for (j in 1:length(X)){
+      Y.out[j] <- my.2BC(y,X[j])
+    }
+    return(Y.out)
+  }
+  
+  # get Chebyshev grid
+  n <- length(y) - 1
+  x.cg <- cos(0:n*pi/n) 
+
+  # test for X coinciding with Chebyshev grid. If it does, skip the 
+  #   barycentric formula and just return the correct y-value. 
+  #   This avoids division by zero. 
+  mat <- which.min(abs(x.cg-X))
+  if (abs(x.cg[mat] - X)<1e-15){return(y[mat])}
+  
+  # if there are just one or two data points, chastise the user
+  if (n<2) {stop("You don't need anything fancy; this is a straight line.")}
+
+  # now, the actual barycentric formula 
+  #   using Salzer's 1972 specialization to Cheb grids
+  num <- y[1]*0.5/(X-x.cg[1]) # special treatment for j=0 (times 0.5)
+  den <- 0.5/(X-x.cg[1])      # special treatment for j=0
+  j <- 1:(n-1)
+  num <- num + sum((-1)^j * y[j+1] / (X - x.cg[j+1]))
+  den <- den + sum((-1)^j / (X - x.cg[j+1]))
+  j <- n
+  num <- num + (-1)^j * y[j+1] * 0.5 / (X - x.cg[j+1]) # also j=n
+  den <- den + (-1)^j * 0.5 / (X - x.cg[j+1]) # also j=n
+  return(num / den)
+}
+
+# Discrete Cosine Transform
+my.dct <- function(y){
+  n <- length(y)-1
+  # y is vector of function values on an n-point Chebyshev grid:
+  # y[k+1] = p(x_k) where x_k = cos(k pi/n) for k = 0 ... n
+  # this function computes Chebyshev coefficients c such that 
+  # p(x) = c[1]*T_0(x) + c[2]*T_1(x) + ... + c[n+1]T_n(x)
+  # where T_j(x) is jth Chebyshev polynomial, T_j(x)=cos(j*acos(x))
+    if (n == 0){ return(y)} # in case anyone wants DCT of a single number
+    Y <- c(y,rev(y[2:n]))   # periodize
+    C <- Re(fft(Y))[1:(n+1)]# real part of discrete Fourier transform
+    C <- C/n                # rescale
+    C[1] <- 0.5*C[1]        # special treatment for first coeff...
+    C[n+1] <- 0.5*C[n+1]    # ...and last coeff
+    return(C)
+}
+
+# Inverse discrete cosine transform
+my.idct <- function(coe){
+    if (length(coe) == 1){return(coe)}
+    coe[1] <- coe[1] * 2
+    coe[length(coe)] <- coe[length(coe)] * 2
+    C <- c(coe, rev(coe[2:(length(coe)-1)]))
+    Y <- fft(C,inverse=TRUE)/2 # not sure why /2 is needed: chase this sometime
+    return(Re(Y[1:length(coe)]))
+}
+
+# a helper function for Chebyshev differentiation
+my.T.der <- function(n){
+  if (n==2) { return(c(4,0)) } # T2' = 4*T1+0
+  if (n==1) { return(c(1,0)) } # T1' = 1*T0+0
+  return(c(2*n,n/(n-2))) # T_n' = 2n*T_(n-1) + n/(n-2)*T_(n-2)'
+}
+# program to take the derivative of a Chebyshev series
+my.cheb.diff <- function(mC){
+  # input mC contains Chebyshev coefficients of the original polynomial
+  C <- 0 + mC 
+  Cd <- rep(0,length(C)-1)
+  for (j in (length(C)-1):1){
+    # replace $T_j'$ with $2jT_{j-1} + j/(j-2) T_{j-2}'
+    C.j <- C[j+1]
+    mTd <- my.T.der(j)
+    Cd[j] <- C.j*mTd[1]
+    C[j+1] <- C[j+1] - C.j
+    C[j-1] <- C[j-1] + C.j*mTd[2]
+  }
+  return(Cd)
+  # output Cd contains Chebyshev coefficients of the derivative
+}
+
+# Find the real roots of a Chebyshev series
+my.roots <- function(c){
+  A <- matrix(0,nrow=n,ncol=n)
+  for (j in 2:n){
+    A[j,j-1] = 0.5
+    A[j-1,j] = 0.5
+  }
+  A[1,2] = 1
+  A[n,] = A[n,] - 0.5 * c[1:n] / c[n+1] # colleague matrix
+  r = eigen(A,only.values = TRUE)$values # get eigenvalues
+  realroots <- Re(r[abs(Im(r))<1e-14]) # throw out complex roots
+  return(realroots)
+}
+```
+### Q0 Names 
+(Optional, extra 5 points)
+Name someone you've worked with on this assignment! 
+
+Wenxuan，Carissa
+
+### Q1 Approximating a discontinuous function
+Let $f$ be the piecewise defined function with the formula $$f(x) = \begin{cases}x & x \ge 0\\ -0.5+x^2& x <0\end{cases}.$$
+Here is the graph: 
+
+```{r}
+f <- function(x){
+  y <- x+0
+  y[x<0] <- -0.5+x[x<0]^2
+  return(y)
+}
+x_pts <- cos(0:40 * pi / 40)
+y_pts <- f(x_pts)
+x <- seq(-1,1,length=1000)
+y <- f(x)
+p <- my.2BC(y_pts, x)
+plot(x,y,'l',main="A discontinuous function")
+lines(x, p, 'l')
+points(x_pts, y_pts, col='black')
+
+```
+
+
+The Chebyshev polynomial approximations will converge slowly since the function is not smooth. Let $p(x)$ be the polynomial of degree $40$ that matches $f(x)$ on the 41-point Chebyshev grid. Plot $p(x)$ and $f(x)$ on the same plot, using different colors. On the same plot, include the points where $f = p$, that is, the points $(x_j, f(x_j))$ for $x_j = \cos(j \pi / 40)$.  
+
+
+
+
+
+### Q2 Extrema problem 
+Let $$f(x) = \sin(6x) + 0.75 \sin(60\exp(x)).$$ The graph is rather wiggly:
+```{r}
+x <- seq(-1,1,length=800)
+f <- function(x) {sin(6*x) + 0.75 *sin(60*exp(x))}
+plot(x,f(x),'l')
+lines(x,0*x,col="gray")
+```
+
+Make another version of this plot that also has red dots at all of the extrema (local maxes and mins) that lie above the gray line $y=0$. 
+
+```{r}
+x <- seq(-1,1,length=800)
+f <- function(x) {sin(6*x) + 0.75 *sin(60*exp(x))}
+plot(x,f(x),'l')
+lines(x,0*x,col="gray")
+n <- 500 # degree 500 approximating polynomial
+x <- cos(0:n * pi / n) # the special grid of x values
+y <- f(x) # the corresponding y values
+c <- my.dct(y) # the Chebyshev coefficients
+cd <- my.cheb.diff(c)
+n <- 499
+roots <- my.roots(cd)
+for (root in roots) {
+  if (f(root) > 0 && root > -1 && root < 1) {
+    points(root, f(root), col='red', pch=20)
+  }
+}
+
+```
+
+```{r}
+roots[1]
+```
+
+
+### Q3 A scary integral
+Normally we apply Clenshaw-Curtis integration to integrals on the interval $[-1,1]$. Here's an example of something a bit more general: let's find 
+$$\int_{0}^\infty \frac{4t^3+6t^2-1}{2+\sqrt{t}}e^{-t}  \,dt.$$
+To deal with the nonstandard interval, we can change variables! Let 
+$$ t = \frac{x+1}{1-x}$$ 
+so that $t$ goes from $0$ to $\infty$ while $x$ is going from $-1$ to $1$. Then we can find $dt = \frac{2}{(1-x)^2}\,dx$ and change the whole problem to an integral in $x\in[-1,1]$ instead of $t\in[0,\infty)$. Now the new problem can be treated with Clenshaw-Curtis integration! Try it with 10, 50, and 250 points and report your answers. *Hint: you might get an issue where your integrand becomes NaN for $x = 1$, since that makes $t=\infty$. To figure out what to do about this, I suggest making a graph of the integrand for $x\in[-1,1]$.*
+
+```{r}
+t <- function(x) {
+  return ((x+1)/(1-x))
+}
+
+f <- function(x) {
+  t <- t(x)
+  return ((4*(t^3) + 6*(t^2) - 1) * exp(-t) * (2/(1-x)^2) / (2 + t^0.5))
+}
+
+integrand <- function(c) {
+  res <- 0
+  for (i in 1:length(c)) {
+    if (i %% 2 == 1) {
+      res <- res + (2 / (1-(i-1)^2))*c[i]
+    }
+  }
+  return(res)
+}
+n <- 10
+x <- cos(1:n * pi / n) # the special grid of x values
+y <- f(x) # the corresponding y values
+c <- my.dct(y) # the Chebyshev coefficients
+inte <- integrand(c)
+inte
+
+n <- 50
+x <- cos(1:n * pi / n) # the special grid of x values
+y <- f(x) # the corresponding y values
+c <- my.dct(y) # the Chebyshev coefficients
+inte <- integrand(c)
+inte
+
+n <- 250
+x <- cos(1:n * pi / n) # the special grid of x values
+y <- f(x) # the corresponding y values
+c <- my.dct(y) # the Chebyshev coefficients
+inte <- integrand(c)
+inte
+```
+
+
+### Q4 Fast decay = smooth graph
+How smooth is the horizon? In mountainous areas, the horizon might be rough and wiggly, with many sharp corners; in other parts of the world you might see smooth hills or even a flat, straight line. 
+The smoothness or roughness of a function can be explored quantitatively through its Chebyshev coefficients. If the coefficients $c_j$ of a Chebyshev series $\sum_{j=0}^\infty$ decay quickly, the graph of the function should be smooth. If the coefficients decay slowly, the graph will be rougher. Let's make a graph illustrating this general principle. First we'll create some randomized Chebyshev coefficients that decay at different rates:
+```{r}
+c.1 <- rnorm(1500)*(1:1500)^(-1)    # slow decay
+c.2 <-rnorm(1500)*(1:1500)^(-1.5)
+c.3 <- rnorm(1500)*(1:1500)^(-2) 
+c.4 <- rnorm(1500)*(1:1500)^(-2.5) 
+c.5 <- rnorm(1500)*(1:1500)^(-3)    # fast decay
+```
+Interpret the vectors created in the last cell as the Chebyshev coeffients of five different polynomials.  Plot all five of them together on one plot. Use different colors and make a legend so that we can see which is which. Is it true that the graph corresponding to **c.5** is the smoothest while the graph corresponding to **c.1** is the roughest? 
+
+Yes, it is true that the graph corresponding to **c.5** is the smoothest while the graph corresponding to **c.1** is the roughest.
+
+```{r}
+x <- cos(1:1500 * pi / 1500) # the special grid of x values
+y.1 <- my.idct(c.1)
+y.2 <- my.idct(c.2)
+y.3 <- my.idct(c.3)
+y.4 <- my.idct(c.4)
+y.5 <- my.idct(c.5)
+plot(x, y.1, 'l')
+lines(x, y.2, col='red')
+lines(x, y.3, col='pink')
+lines(x, y.4, col='blue')
+lines(x, y.5, col='green')
+legend("topright", legend = c("c.1", "c.2", "c.3", "c.4","c.5"), col = c("black", "red", "pink", "blue", "green"), pch = 19)
+
+```
+
+
+
+### Q5 Zero-padding before IDCT
+Let $p(x) = 14T_6(x) - 100T_4(x)+2T_3(x)+18T_2(x)-9T_1(x)+1$.
+Here is a mysterious code fragment that creates vectors **y.1** and **y.2**: 
+```{r}
+cc <- c(1,-9,18,2,-100,0,14)
+y.1 <- my.idct(cc)
+cc.with.zeros <- c(cc,rep(0,94))
+y.2 <- my.idct(cc.with.zeros) 
+```
+Note that ```cc``` and ```cc.with.zeros``` both express the same Chebyshev series; the only difference is that ```cc``` truncates after $c_6=14$, whereas ```cc.with.zeros``` continues with $c_7=0$, $c_8=0$, $\cdots$, $c_{100}=0$. 
+
+First, note that ```y.1[6] = 53.79422863406```. Show that you understand what the IDCT does by writing your own code to recreate this number, using the vector ```cc``` but not using the IDCT. 
+```{r}
+# Define the Chebyshev coefficients
+cc <- c(1, -9, 18, 2, -100, 0, 14)
+x <- cos(5*pi/6)
+t <- rep(0, 7)
+t[1] <- 1
+t[2] <- x
+for (i in 3:length(t)) {
+  t[i] <- 2*x*t[i-1] - t[i-2] 
+}
+res <- t(t) %*% cc
+res
+```
+
+Next, note that ```y.2[28]=93.150093709829```. Show that you understand what the IDCT does by writing your own code to recreate this number, using the vector ```cc``` but not using the IDCT. 
+
+```{r}
+cc.with.zeros <- c(cc,rep(0,94))
+x <- cos(27*pi/100)
+t <- rep(0, 101)
+t[1] <- 1
+t[2] <- x
+for (i in 3:length(t)) {
+  t[i] <- 2*x*t[i-1] - t[i-2] 
+}
+res <- t(t) %*% cc.with.zeros
+res
+```
+
+
+### Q6 Multiplying two Chebyshev series
+Let $p(x)$ be a polynomial of degree $n$ and let $q(x)$ be a polynomial of degree $m$. Then we know that $r(x) = p(x) q(x)$ is a polynomial of degree $n+m$. Fill in the rest of this function to obtain the Chebyshev coefficients for $r(x)$ from the coefficients for $p$ and $q$. 
+```{r}
+cheb.mult <- function(cp,cq){
+  n <- length(cp) - 1
+  m <- length(cq) - 1
+  # ... create yp and yq
+  yp <- my.idct(cp)
+  yq <- my.idct(cq)
+  t <- m+n
+  X <- cos(0:t * pi / t)
+  yp <- my.2BC(yp, X)
+  yq <- my.2BC(yq, X)
+  cr <- my.dct(yp*yq)
+  return(cr)
+}
+round(cheb.mult(c(0,0,10),c(0,0,0,10)))
+```
+You can check your function by testing that $p(x)=10T_2(x)$ and $q(x)=10T_3(x)$ give $p(x)q(x) = 50T_1(x) + 50T_5(x)$. That is, ```cheb.mult(c(0,0,10),c(0,0,0,10))``` should return ```[0,50,0,0,0,50]```. 
+
+
+### Q7 Nested Chebyshev grids
+Here's the Chebyshev grid with 34 points:
+```{r}
+x34 <- cos(0:33 * pi / 33)
+
+j <- 35
+
+while (length(setdiff(x34, cos(0:(j-1) * pi / (j-1)))) > 0) {
+  j <- j + 1
+}
+
+print(j)
+```
+What is the smallest $j>34$ such that the $j$-point Chebyshev grid includes all of the values in ```x34```?
+
+The smallest $j > 34$ such that the $j$-point Chebyshev grid includes all of the values in ```x34``` will be 67.
+
+
