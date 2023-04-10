@@ -1,0 +1,140 @@
+---
+title: "HW9"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Q1 The rectangular case for $A=QR$
+In class we made code demos for the $A=QR$ factorization using either Givens rotations or Householder reflections. You can find the codes we wrote on our course spreadsheet. 
+
+In least-squares problems, we factor $A=QR$ where $A$ has more rows than columns: $A\in\mathbb{R}^{m\times n}$ with $m<n$. In this case $R\in\mathbb{R}^{m\times m}$ is a small square upper-triangular matrix and $Q\in\mathbb{R}^{m\times n}$ has perpendicular columns of unit length (but $Q$ is not orthogonal because it isn't square). The code we wrote in class assumes that $A$ is square. Make a new version to handle the case where $A$ has more columns than rows. Please comment your code and also write some sentences describing how you figured out how to modify the original code.  Note: you can pick either the Givens or the Householder version, regardless of which one you saw in class. 
+
+To test your code, make a random $60\times15$ matrix, factor it, and then print out $\max(|A - QR|)$. 
+
+```{r}
+# generate random matrix A with 60 rows and 15 columns
+set.seed(123)
+A <- matrix(runif(60*15), 60, 15)
+
+# initialize Q and R
+n <- nrow(A)
+m <- ncol(A)
+Q <- diag(n)
+R <- A
+
+# apply given rotations
+for (j in 1:m) {
+  for (i in n:(j+1)) {
+    # apply given rotation to zero out R[i,j]
+    x <- R[(i-1),j]
+    y <- R[i,j]
+    r <- sqrt(x^2 + y^2)
+    c <- x/r
+    s <- -y/r
+    G <- diag(n)
+    G[(i-1),(i-1)] <- c
+    G[i,i] <- c
+    G[i,(i-1)] <- s
+    G[(i-1),i] <- -s
+    R <- G %*% R
+    Q <- Q %*% t(G)
+  }
+}
+
+# extract R from upper triangle of modified A
+
+# check max error |A-QR|
+print(max(abs(A - Q %*% R)))
+
+```
+
+
+### Q2 The Fast Fourier transform
+We already saw that the DCT converts function values on a Chebyshev grid into Chebyshev coefficients. Similarly, the fast Fourier transform converts function values at *evenly spaced points* into *trigonometric coefficients*. For example, let $f(x) = 12\cos(0x) + 16\sin(x) + 28\cos(x) + 2 \cos(2x) +18\sin(3x)$; the function values on a 9-point evenly spaced grid from $0$ to $2\pi$, but not including $2\pi$, are: 
+```{r}
+x <- (0:8) * 2*pi / 9 # evenly spaced points
+y <- 12 * cos(0*x) + 16*sin(x) + 28*cos(x) + 2*cos(2*x) + 18*sin(3*x) 
+y
+```
+We'll take the FFT and then lightly process the result. Do you see the coefficients that we used in the definition of $f$ appearing here? 
+```{r}
+co <- fft(y)
+co <- co / length(co) * 2
+co[1] <- co[1]/2
+co
+```
+The first entry of ```co``` contains the constant term (aka the one with $\cos(0x)$).  Then the next three entries have information about the $\cos$ and $\sin$ coefficients: cosines in the real part, sines in the imaginary part (with a minus). The fifth entry is zero, meaning that there is no $\sin(4x)$ term and no $\cos(4x)$ term. With a grid of nine points, we can't resolve anything higher than frequency 4, so we're done there. The last entries in the vector don't contain new information - they're just repeats of what we saw before in reverse order and with the imaginary parts multiplied by $-1$. So really we could get all of the information out of ```co[1:5]```. 
+
+Question: I started with a function $$g(x) = a_0 + b_1\sin(x) + a_1\cos(x) + b_2\sin(2x) + a_2\cos(2x) + \cdots + b_{8}\sin(8x) + a_8\cos(8x).$$ 
+Then I made a 17-point evenly spaced grid, found the function values, took the FFT, and post-processed the output just like above. I got this vector:
+```{r}
+co <- c(3,14+22i,8+8i,3-1i,-2-2i,0.4,0.2-0.1i,0,0.1i,-0.1i,0,0.2+0.1i,0.4,-2+2i,3+1i,8-8i,14-22i)
+co
+```
+Make a graph of the original function on the interval $[0,2\pi]$. 
+
+From the vector above, we can get the function
+$$g(x) = 3\cos(0x)-22\sin(x) + 14\cos(x)-8\sin(2x)+8\cos(2x)+\sin(3x)+3\cos(3x)+2\sin(4x)-2\cos(4x)+0.4\cos(5x)+0.1\sin(6x)+0.2\cos(6x) -0.1\sin(8x)$$
+
+```{r}
+x <- seq(0,2*pi,length=800)
+y <- 3*cos(0*x)-22*sin(x) + 14*cos(x)-8*sin(2*x)+8*cos(2*x)+sin(3*x)+3*cos(3*x)+2*sin(4*x)-2*cos(4*x)+0.4*cos(5*x)+0.1*sin(6*x)+0.2*cos(6*x) -0.1*sin(8*x)
+plot(x, y, 'l')
+```
+
+
+### Q3 Least squares localization
+A hiker is calling for help and we need to know where to send a rescue team! Here is a picture showing four cell towers (dots) and four circles, each indicating a distance from the tower where the hiker's cellphone is estimated to lie. 
+```{r}
+tx <- c(0,60,80,40)
+ty <- c(10,0,50,70)
+d <- c(42,70,62,30)
+tt <- seq(0,2*pi,length=800)
+plot(tx,ty,'p',pch=19,asp=1,
+     xlim=c(-20,80),ylim=c(-20,80),
+     main="Search and Rescue",
+     xlab="X",ylab="Y")
+for (j in 1:4){
+  lines(tx[j]+cos(tt)*d[j],ty[j]+sin(tt)*d[j],col="orange")
+}
+```
+
+Unfortunately, the four circles do not all meet at a single point. That is, there is no location $(x,y)$ satisfying all of these equations:
+$$
+\begin{align*}
+(x-0)^2 + (y-10)^2 &= 42^2\\
+(x-60)^2 + (y-0)^2 &= 70^2\\
+(x-80)^2 + (y-50)^2 &= 62^2\\
+(x-40)^2 + (y-70)^2 &= 30^2
+\end{align*}
+$$
+These equations are not linear in $x$ and $y$, so our existing theory doesn't directly address this situation. One way to solve this problem is to minimize an error function like this: 
+$$ E(x,y) = ((x-0)^2 + (y-10)^2 - 42^2)^2 + \cdots + 
+((x-40)^2 + (y-70)^2 - 30^2)^2, $$
+possibly by using Newton's method.
+
+An alternative way to solve this problem is to make it into an ordinary least-squares problem. One method to do this is to pick two equations, say the $i$-th and the $j$-th, to get equations like 
+$$
+\begin{align*}
+(x-X_i)^2 + (y-Y_i)^2 &= d_i^2\\
+(x-X_j)^2 + (y-Y_j)^2 &= d_j^2\\
+\end{align*}
+$$
+On expanding and rearranging, we get
+$$
+\begin{align*}
+x^2+y^2 -2xX_i - 2yY_i  &= d_i^2- X_i^2- Y_i^2\\
+x^2+y^2 -2xX_j - 2yY_j  &= d_j^2- X_j^2- Y_j^2\\
+\end{align*}
+$$
+Then we can subtract these equations to get a new equation that's linear in $x$ and $y$. There were four equations originally, so there are six ways to choose a pair of them. Therefore we arrive at an $A\vec x=b$ where $A$ is $6\times 2$; the unknown vector $\vec x$ is really $\vec x = (x,y)$. 
+
+One way or another, figure out where the rescue team should go! Explain your work and add your suggested destination to the graph with the circles. 
+
+
+
+

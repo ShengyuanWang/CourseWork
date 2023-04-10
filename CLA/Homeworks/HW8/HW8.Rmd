@@ -1,6 +1,7 @@
 ---
 title: "HW8"
 date: "`r Sys.Date()`"
+author: Shengyuan Wang
 output: html_document
 ---
 
@@ -147,8 +148,8 @@ x <- seq(-1,1,length=1000)
 y <- f(x)
 p <- my.2BC(y_pts, x)
 plot(x,y,'l',main="A discontinuous function")
-lines(x, p, 'l')
-points(x_pts, y_pts, col='black')
+lines(x, p, 'l', col='red')
+points(x_pts, y_pts, col='blue', pch=20)
 
 ```
 
@@ -265,7 +266,7 @@ y.2 <- my.idct(c.2)
 y.3 <- my.idct(c.3)
 y.4 <- my.idct(c.4)
 y.5 <- my.idct(c.5)
-plot(x, y.1, 'l')
+plot(x, y.1, 'l', ylim = c(-2, 2), xlim = c(-1,1.2))
 lines(x, y.2, col='red')
 lines(x, y.3, col='pink')
 lines(x, y.4, col='blue')
