@@ -136,5 +136,47 @@ Then we can subtract these equations to get a new equation that's linear in $x$ 
 One way or another, figure out where the rescue team should go! Explain your work and add your suggested destination to the graph with the circles. 
 
 
+```{r}
+f <- function(x,y){
+  return((x^2 + (y-10)^2 -42^2)^2+((x-60)^2 + (y-0)^2 -70^2)^2+((x-80)^2 + (y-50)^2 -62^2)^2+((x-40)^2 + (y-70)^2 -30^2)^2)
+} # this isn't actually needed!
 
+Hf <- function(x,y){ # Hessian matrix of second derivatives
+  fxx <- 16*(3*x^2-270*x+y^2-65*y+7723)
+  fxy <- 16*(x*(2*y-65)-90*y+3400)
+  fyy <- 16*(x^2-90*x+3*(y^2-65*y+1891))
+  H <- cbind(c(fxx,fxy),c(fxy,fyy))
+  return(H)
+}
 
+gradf <- function(x,y){ # gradient (vector of first derivatives)
+  fx <- 16*(x^3-135*x^2+x*(y^2-65*y+7723)-5*(9*y^2-680*y+27524))
+  fy <- 8*(x^2*(2*y-65)-20*x*(9*y-340)+2*y^3-195*y^2+11346*y-314080)
+  return(c(fx,fy))
+}
+
+v <- c(0.0,0.0)
+
+for (j in 1:10){
+  print(v)
+  x <- v[1]
+  y <- v[2]
+  dv <- qr.solve(Hf(x,y), -gradf(x,y)) # linear solve
+  v <- v + dv # update
+}
+```
+
+```{r}
+tx <- c(0,60,80,40)
+ty <- c(10,0,50,70)
+d <- c(42,70,62,30)
+tt <- seq(0,2*pi,length=800)
+plot(tx,ty,'p',pch=19,asp=1,
+     xlim=c(-20,80),ylim=c(-20,80),
+     main="Search and Rescue",
+     xlab="X",ylab="Y")
+for (j in 1:4){
+  lines(tx[j]+cos(tt)*d[j],ty[j]+sin(tt)*d[j],col="orange")
+}
+points(v[1], v[2], 'p', pch=19, col='red')
+```
