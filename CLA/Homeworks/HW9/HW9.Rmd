@@ -2,11 +2,16 @@
 title: "HW9"
 date: "`r Sys.Date()`"
 output: html_document
+author: Shengyuan Wang
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+I worked with Carissa and Wenxuan.
+
+
 
 ### Q1 The rectangular case for $A=QR$
 In class we made code demos for the $A=QR$ factorization using either Givens rotations or Householder reflections. You can find the codes we wrote on our course spreadsheet. 
@@ -17,7 +22,6 @@ To test your code, make a random $60\times15$ matrix, factor it, and then print 
 
 ```{r}
 # generate random matrix A with 60 rows and 15 columns
-set.seed(123)
 A <- matrix(runif(60*15), 60, 15)
 
 # initialize Q and R
@@ -36,6 +40,7 @@ for (j in 1:m) {
     c <- x/r
     s <- -y/r
     G <- diag(n)
+    # Here instead of change (i, j), (i, j-1), (i-1, j), and (i-1, j-1), we make change on (i, i), (i-1, i), (i, i-1), (i-1, i-1)
     G[(i-1),(i-1)] <- c
     G[i,i] <- c
     G[i,(i-1)] <- s
@@ -45,13 +50,12 @@ for (j in 1:m) {
   }
 }
 
-# extract R from upper triangle of modified A
-
 # check max error |A-QR|
 print(max(abs(A - Q %*% R)))
 
 ```
 
+In this problem, I choose given rotations method to solve it. Since there are more rows than columns, we also change $Q$ into a matrix with lower triangles being zeros. So we just need to consider the rotations that make the lower triangles zeros, just as given in the code chunk above, I just change (i, j) in original code in class into (i, i).
 
 ### Q2 The Fast Fourier transform
 We already saw that the DCT converts function values on a Chebyshev grid into Chebyshev coefficients. Similarly, the fast Fourier transform converts function values at *evenly spaced points* into *trigonometric coefficients*. For example, let $f(x) = 12\cos(0x) + 16\sin(x) + 28\cos(x) + 2 \cos(2x) +18\sin(3x)$; the function values on a 9-point evenly spaced grid from $0$ to $2\pi$, but not including $2\pi$, are: 
@@ -78,7 +82,8 @@ co
 Make a graph of the original function on the interval $[0,2\pi]$. 
 
 From the vector above, we can get the function
-$$g(x) = 3\cos(0x)-22\sin(x) + 14\cos(x)-8\sin(2x)+8\cos(2x)+\sin(3x)+3\cos(3x)+2\sin(4x)-2\cos(4x)+0.4\cos(5x)+0.1\sin(6x)+0.2\cos(6x) -0.1\sin(8x)$$
+$$g(x) = 3\cos(0x)-22\sin(x) + 14\cos(x)-8\sin(2x)+8\cos(2x)+\sin(3x)+3\cos(3x)$$
+$$+2\sin(4x)-2\cos(4x)+0.4\cos(5x)+0.1\sin(6x)+0.2\cos(6x) -0.1\sin(8x)$$
 
 ```{r}
 x <- seq(0,2*pi,length=800)
@@ -180,3 +185,5 @@ for (j in 1:4){
 }
 points(v[1], v[2], 'p', pch=19, col='red')
 ```
+
+I use the first method to get the error function and minimize the value of that through Newton's method. I get the Hessian matrix of second derivatives and gradient (vector of first derivatives) to solve the problem. And I figure out the suggested destination in the graph with the red point.
