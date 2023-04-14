@@ -86,9 +86,15 @@ $$g(x) = 3\cos(0x)-22\sin(x) + 14\cos(x)-8\sin(2x)+8\cos(2x)+\sin(3x)+3\cos(3x)$
 $$+2\sin(4x)-2\cos(4x)+0.4\cos(5x)+0.1\sin(6x)+0.2\cos(6x) -0.1\sin(8x)$$
 
 ```{r}
+f <- function(x){
+  return(3*cos(0*x)-22*sin(x) + 14*cos(x)-8*sin(2*x)+8*cos(2*x)+sin(3*x)+3*cos(3*x)+2*sin(4*x)-2*cos(4*x)+0.4*cos(5*x)+0.1*sin(6*x)+0.2*cos(6*x) -0.1*sin(8*x))
+}
+xx <- (0:17) * 2*pi / 17
+yy <- f(xx)
 x <- seq(0,2*pi,length=800)
-y <- 3*cos(0*x)-22*sin(x) + 14*cos(x)-8*sin(2*x)+8*cos(2*x)+sin(3*x)+3*cos(3*x)+2*sin(4*x)-2*cos(4*x)+0.4*cos(5*x)+0.1*sin(6*x)+0.2*cos(6*x) -0.1*sin(8*x)
+y <- f(x)
 plot(x, y, 'l')
+points(xx, yy)
 ```
 
 
